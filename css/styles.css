@@ -1,0 +1,33 @@
+body, html {
+	background: #CCCCCC;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.options-box {
+	position: absolute;
+	top: 60px;
+	left: 20px;
+	height: 80%;
+	float: left;
+	width: 20%;
+	padding-left: 20px;
+	z-index: 1;
+	background: rgba(204, 204, 204, 0.9);
+}
+/*
+#options-box {
+}*/
+
+.map-box {
+	width: 80%;
+}
+
+.map-content {
+	height: 100%;
+}
+
+#map {
+	height: 100%;
+}
