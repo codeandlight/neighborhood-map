@@ -1,15 +1,15 @@
 // List of locations
-var skiResorts = [
-    { name: "Heavenly Mountain Resort", location: {lat: 38.957265, lng: -119.942719 }},
-    { name: "Northstar California Resort", location: { lat: 39.290828, lng: -120.119423 }},
-    { name: "Squaw Valley Resort", location: { lat: 39.234946, lng: -120.238452 }},
-    { name: "Sierra-At-Tahoe Resort", location: { lat: 38.825300, lng: -120.079150 }},
-    { name: "Homewood Mountain Resort", location: { lat: 39.115711, lng: -120.160174 }},
-    { name: "Alpine Meadows Ski Resort", location: { lat: 39.196643, lng: -120.238452 }},
-    { name: "Diamond Peak Ski Resort", location: { lat: 39.254090, lng: -119.912982 }},
-    { name: "Mt. Rose Ski Tahoe", location: { lat: 39.356102, lng: -119.882770 }},
-    { name: "Donner Ski Ranch", location: { lat: 39.346938, lng: -120.329092 }},
-    { name: "Sugar Bowl Resort", location: { lat: 39.327820, lng: -120.331838 }}
+var mammothLodging = [
+    { name: "Cinnabon Bear Inn", location: { lat: 37.646934, lng: -118.971888 }},
+    { name: "Quality Inn", location: { lat: 37.648242, lng: -118.975139 }},
+    { name: "Innsbruck Lodge", location: { lat: 37.651181, lng: -118.982188 }},
+    { name: "Best Western Plus High Sierra Hotel", location: { lat: 37.648938, lng: -118.969333 }},
+    { name: "Rodeway Inn Wildwood Inn", location: { lat: 37.649133, lng: -118.976446 }},
+    { name: "M Inn Mammoth", location: { lat: 37.647426, lng: -118.976800 }},
+    { name: "Shilo Inn Suites", location: { lat: 37.646093, lng: -118.964614 }},
+    { name: "Sierra Lodge", location: { lat: 37.649185, lng: -118.974785 }},
+    { name: "Travelodge", location: { lat: 37.649304, lng: -118.974173 }},
+    { name: "Alpenhof Lodge", location: { lat: 37.650034, lng: -118.983540 }}
 ];
 
 // Initialize map variable
@@ -18,15 +18,15 @@ var map;
 // Initialize markers array
 var markers = [];
 
-
 function initMap() {
 
+    // Custom map styling using: https://mapstyle.withgoogle.com/
     var styles = [
       {
         "elementType": "geometry",
         "stylers": [
           {
-            "color": "#f5f5f5"
+            "color": "#ffffff"
           }
         ]
       },
@@ -55,8 +55,7 @@ function initMap() {
         ]
       },
       {
-        "featureType": "administrative.land_parcel",
-        "elementType": "labels",
+        "featureType": "administrative.neighborhood",
         "stylers": [
           {
             "visibility": "off"
@@ -64,74 +63,30 @@ function initMap() {
         ]
       },
       {
-        "featureType": "administrative.land_parcel",
-        "elementType": "labels.text.fill",
+        "featureType": "administrative.province",
         "stylers": [
           {
-            "color": "#bdbdbd"
+            "visibility": "off"
           }
         ]
       },
       {
-        "featureType": "landscape.natural",
+        "featureType": "landscape",
         "stylers": [
           {
-            "visibility": "on"
+            "color": "#eef0f0"
           }
         ]
       },
       {
-        "featureType": "landscape.natural",
+        "featureType": "poi",
         "elementType": "geometry",
         "stylers": [
           {
-            "color": "#ffffff"
-          }
-        ]
-      },
-      {
-        "featureType": "landscape.natural",
-        "elementType": "geometry.fill",
-        "stylers": [
-          {
-            "color": "#ffffff"
+            "color": "#cccccc"
           },
           {
-            "visibility": "on"
-          }
-        ]
-      },
-      {
-        "featureType": "landscape.natural.landcover",
-        "stylers": [
-          {
-            "color": "#800080"
-          }
-        ]
-      },
-      {
-        "featureType": "landscape.natural.terrain",
-        "stylers": [
-          {
-            "color": "#ffffff"
-          }
-        ]
-      },
-      {
-        "featureType": "poi",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#eeeeee"
-          }
-        ]
-      },
-      {
-        "featureType": "poi",
-        "elementType": "labels.text",
-        "stylers": [
-          {
-            "visibility": "off"
+            "visibility": "simplified"
           }
         ]
       },
@@ -145,11 +100,28 @@ function initMap() {
         ]
       },
       {
+        "featureType": "poi.business",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.business",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#b9fa99"
+          }
+        ]
+      },
+      {
         "featureType": "poi.park",
         "elementType": "geometry",
         "stylers": [
           {
-            "color": "#e5e5e5"
+            "color": "#cbfac7"
           }
         ]
       },
@@ -167,7 +139,7 @@ function initMap() {
         "elementType": "geometry",
         "stylers": [
           {
-            "color": "#ffffff"
+            "color": "#66ccff"
           }
         ]
       },
@@ -176,6 +148,15 @@ function initMap() {
         "stylers": [
           {
             "color": "#66ccff"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#000000"
           }
         ]
       },
@@ -201,16 +182,7 @@ function initMap() {
         "featureType": "road.local",
         "stylers": [
           {
-            "color": "#66ccff"
-          }
-        ]
-      },
-      {
-        "featureType": "road.local",
-        "elementType": "labels",
-        "stylers": [
-          {
-            "visibility": "off"
+            "visibility": "simplified"
           }
         ]
       },
@@ -219,7 +191,10 @@ function initMap() {
         "elementType": "labels.text.fill",
         "stylers": [
           {
-            "color": "#9e9e9e"
+            "color": "#000000"
+          },
+          {
+            "visibility": "off"
           }
         ]
       },
@@ -246,16 +221,7 @@ function initMap() {
         "elementType": "geometry",
         "stylers": [
           {
-            "color": "#c9c9c9"
-          }
-        ]
-      },
-      {
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [
-          {
-            "color": "#66ffff"
+            "color": "#cdfdff"
           }
         ]
       },
@@ -268,12 +234,16 @@ function initMap() {
           }
         ]
       }
-    ]
+    ];
+
+    // Initialize infowindow to display information
+    var infowindow = new google.maps.InfoWindow();
 
     // Initialize and create map
     map = new google.maps.Map(document.getElementById('map'), {
-        center: skiResorts[0].location,
+        center: mammothLodging[0].location,
         zoom: 25,
+        mapTypeControl: false,
         mapTypeControlOptions: {
             mapTypeIds: [ 'roadmap' ]
         },
@@ -282,10 +252,9 @@ function initMap() {
 
     // Create a new bounds object to adjust the boundaries of the map
   	var bounds = new google.maps.LatLngBounds();
-
-	for ( var i = 0; i < skiResorts.length; i++ ) {
-		var position = skiResorts[i].location;
-		var title = skiResorts[i].name;
+	for ( var i = 0; i < mammothLodging.length; i++ ) {
+		var position = mammothLodging[i].location;
+		var title = mammothLodging[i].name;
 
         var marker = new google.maps.Marker({
 			position: position,
@@ -300,20 +269,32 @@ function initMap() {
 
         // Add marker.position to bounds
         bounds.extend(marker.position);
+
+        // Add click event to populate infowindow when marker is clicked
+        marker.addListener('click', function() {
+            populateInfoWindow(this, infowindow);
+        });
 	}
 
     // Fit the map boundaries to all marker positions
     map.fitBounds(bounds);
+
+    // Populate Infowindow
+    function populateInfoWindow( marker, infowindow ) {
+        if ( infowindow.marker != marker ) {
+            infowindow.marker = marker;
+            infowindow.setContent('<div><h2>' + marker.title + '</h2></div>');
+            infowindow.open( map, marker );
+        }
+
+        infowindow.addListener('closeclick', function() {
+            infowindow.marker = null;
+        });
+    }
 }
 
-// Change background opacity during mouseover/mouseout
-document.getElementById('options-box').addEventListener('mouseover', function() {
-    // style: rgba(204, 204, 204, 0.5);
-    var elem = document.getElementById('options-box');
-    elem.style.backgroundColor = "rgba(204, 204, 204, 0.3)";
-});
-
-document.getElementById('options-box').addEventListener('mouseout', function() {
-    var elem = document.getElementById('options-box');
-    elem.style.backgroundColor = "rgba(204, 204, 204, 0.9)";
+// Menu Toggle
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
 });
