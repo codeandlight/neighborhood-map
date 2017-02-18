@@ -17,7 +17,7 @@ header {
 }
 
 #map {
-	height: 90vh;
+	height: 110vh;
 }
 
 /*********************************************
@@ -45,7 +45,7 @@ header {
 #menu-toggle-button {
 	left: 0;
 	position: absolute;
-	top: 15%;
+	top: 10px;
 	z-index: 3;
 }
 
