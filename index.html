@@ -54,18 +54,18 @@
                         <h5>Weather Forecast <span class="weatherGlyph glyphicon glyphicon-menu-up"></span></h5>
                         </div>
                         <div class="weatherInfoWindow">
-                            <table id="weatherInfo">
-                            </table>
-                            <!-- <ul id="weatherInfo"></ul> -->
-                            <table>
-                                <tbody data-bind="foreach: weatherList">
-                                    <tr>
-                                        <td data-bind="text: date"></td>
-                                        <td data-bind="html: icon"></td>
-                                        <td data-bind="text: desc"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div data-bind="ifnot: weatherList"><p>Forecast not available</p></div>
+                            <!-- ko if: weatherList -->
+                                <table id="weatherInfo">
+                                    <tbody data-bind="foreach: weatherList">
+                                        <tr>
+                                            <td data-bind="text: date"></td>
+                                            <td data-bind="html: icon"></td>
+                                            <td data-bind="text: desc"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            <!-- /ko -->
                         </div>
                         <div id="map"></div>
                     </div>
