@@ -1,9 +1,9 @@
 # Neighboorhood Map
 ## Project for Front-End Web Development at Udacity.com
 (work in progress)
-This is the Neighboorhood Map project. This project uses a variety of technologies learned throughout the Front-End Web Development (FEND) Nanodegree program. 
+This is the Neighboorhood Map project. This project uses a variety of technologies learned throughout the Front-End Web Development (FEND) Nanodegree program at [Udacity.com](http://udacity.com "Udacity.com").
 
-In this project, I am using the following technologies:
+In this project, I am using the following:
 - HTML5
 - CSS3
 - Javascript
@@ -14,8 +14,8 @@ In this project, I am using the following technologies:
 - KnockoutJS MVVM
 
 ### Resources
-- Responsive Sidebar by BlackrockDigital [source](https://github.com/BlackrockDigital/startbootstrap-simple-sidebar)
-- Bootstrap v3.3.7 [getBoostrap.com](http://getbootstrap.com)
-- Google Maps Styling Wizard [Styling Wizard: Google Maps](https://mapstyle.withgoogle.com/)
-- Open Weather Map API [openweathermap.org](http://openweathermap.org)
-- Knockout.js [knockoutjs.com](http://knockoutjs.com)
+- Responsive Sidebar by BlackrockDigital [source](https://github.com/BlackrockDigital/startbootstrap-simple-sidebar "Responsive Sidebar")
+- Bootstrap v3.3.7 [getBoostrap.com](http://getbootstrap.com "getBootstrap.com")
+- Google Maps Styling Wizard [Styling Wizard: Google Maps](https://mapstyle.withgoogle.com/ "Google Maps Styling Wizard")
+- Open Weather Map API [openweathermap.org](http://openweathermap.org "Open Weather Map")
+- Knockout.js [knockoutjs.com](http://knockoutjs.com "Knockout JS")
