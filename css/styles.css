@@ -21,12 +21,20 @@ hr {
 /*********************************************
 * Weather Info from OpenWeatherMap.com
 *********************************************/
+.weatherGlyph {
+	background: #E6E6E6;
+	border: 1px solid black;
+	color: black;
+	padding: 3px;
+	margin-left: 10px;
+}
+
 .weatherInfoButton {
 	background: #00ffff;
 	background: rgba(76, 154, 178, 0.4);
-	border-width: 3px;
 	color: white;
-	height: 30px;
+	height: 36px;
+	padding: 0 10px 10px 10px;
 	position: absolute;
 	right: 0;
 	text-align: center;
@@ -46,17 +54,13 @@ hr {
 	padding: 10px;
 	position: absolute;
 	right: 0;
-	top: 30px;
+	top: 36px;
 	text-shadow: 0 0 8px black;
 	width: 175px;
 	z-index: 30;
 
 }
 
-.weatherGlyph {
-	background: #E6E6E6;
-	border: 1px solid black;
-}
 
 #weatherInfo {
 	color: #00ffff;
