@@ -1,3 +1,7 @@
+/*
+Google Maps Javascript
+*/
+
 // List of locations
 var mammothLodging = [
     { name: "Cinnabon Bear Inn", location: { lat: 37.646934, lng: -118.971888 }},
