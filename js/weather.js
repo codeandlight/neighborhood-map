@@ -18,7 +18,7 @@ var owmIconUrl = "http://openweathermap.org/img/w/";
 var ownLocationZip = "93546,us";  // Mammoth Lakes, CA
 var owmCityId = 5370006;  // Mammmoth Lakes, CA
 var owmKey = "363a750eba84b06b38896944ddd563f9";
-var owmUrl = "http://api.openweathermap.org/data/2.5/forecast?id=" + owmCityId + "&APPID=" + owmKey;
+var owmUrl = "https://crossorigin.me/http://api.openweathermap.org/data/2.5/forecast?id=" + owmCityId + "&APPID=" + owmKey;
 
 // Weather Model for KnockoutJS
 // This function takes the 5-day forecast result from Open Weather Map API call
