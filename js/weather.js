@@ -39,7 +39,8 @@ var weatherModel = function() {
     // Use of the Open Weather Map API is limited therefore, calls to the API are limited to once every
     // three hours
     // If localStorage variables are null; invoke getWeatherForecast()
-    if ( ( localStorage.owmCallTime === null ) || ( localStorage.owmWeatherForecast === null )) {
+    if (( typeof(localStorage.owmCallTime) === 'undefined' ) ||
+        ( typeof(localStorage.owmWeatherForecast) === 'undefined' )) {
         console.log('Initializing OWM Forecast data...');
         getWeatherForecast();
     } else {
