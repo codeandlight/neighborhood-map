@@ -23,9 +23,42 @@ var owmUrl = "http://api.openweathermap.org/data/2.5/forecast?id=" + owmCityId +
 // as an argument and creates a ko.observableArray to display the weather
 var weatherModel = function() {
 
-    var weatherData = JSON.parse(localStorage.owmWeatherForecast);
-    var weatherForecast = weatherData.list;
+    var weatherData = ko.observable();
     var weatherArray = ko.observableArray();
+
+    /*
+    ** Calls the Open Weather Maps 5-day Forecast API and sets the response and the time of
+    ** the call to localStorage.
+    ** Use of the Open Weather Map API is limited therefore, calls to the API are limited to once every three hours
+    ** If localStorage variables are null or if last update is longer than 3 hours (10800000 ms);
+    ** the API is called and localStorage var are updated.
+    */
+    if (( typeof(localStorage.owmCallTime) === 'undefined') ||
+        ( typeof(localStorage.owmWeatherForecast)  === 'undefined' ) ||
+        (Date.now() - localStorage.owmCallTime) > 10800000 ) {
+            console.log('Requesting API...');
+            $.ajax({
+                url: owmUrl,
+                dataType: "jsonp",
+
+            })
+            .done(function(response) {
+                    console.log(response);
+                    localStorage.owmWeatherForecast = JSON.stringify(response);
+                    localStorage.owmCallTime = Date.now();
+                    weatherData = JSON.parse(localStorage.owmWeatherForecast);
+            })
+            .error(function (jqXHR, exception) {
+                console.log(jqXHR.status, exception);
+                return null;
+            });
+    } else {
+            console.log('Forecast data is current...');
+            console.log('Last updated: ', new Date(JSON.parse(localStorage.owmCallTime)));
+            weatherData = JSON.parse(localStorage.owmWeatherForecast);
+    }
+
+    var weatherForecast = weatherData.list;
 
     // Get forecast information from weather data. 8 weather points are taken per day,
     // therefore, iterate by 8 to get daily forecast value
@@ -47,35 +80,9 @@ var weatherModel = function() {
 // Weather View Model
 var weatherViewModel = function() {
     var self = this;
-
     var weatherList = ko.observableArray();
 
-    /*
-    ** Calls the Open Weather Maps 5-day Forecast API and sets the response and the time of
-    ** the call to localStorage.
-    ** Use of the Open Weather Map API is limited therefore, calls to the API are limited to once every three hours
-    ** If localStorage variables are null or if last update is longer than 3 hours (10800000 ms);
-    ** the API is called and localStorage var are updated.
-    */
-    if (( typeof(localStorage.owmCallTime) === 'undefined') ||
-        ( typeof(localStorage.owmWeatherForecast)  === 'undefined' ) ||
-        (Date.now() - localStorage.owmCallTime) > 10800000 ) {
-            console.log('Requesting API...');
-            $.ajax({
-                url: owmUrl,
-                dataType: "jsonp",
-                success: function(response) {
-                    console.log(response);
-                    localStorage.owmWeatherForecast = JSON.stringify(response);
-                    localStorage.owmCallTime = Date.now();
-                    self.weatherList = new weatherModel();
-                }
-            });
-    } else {
-            console.log('Forecast data is current...');
-            console.log('Last updated: ', new Date(JSON.parse(localStorage.owmCallTime)));
-            self.weatherList = new weatherModel();
-    }
+    self.weatherList = new weatherModel();
 };
 
 
