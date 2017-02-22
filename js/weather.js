@@ -78,7 +78,7 @@ var weatherModel = function() {
         // var weatherDate = weatherForecast[i].dt_txt.substring(5, 10);
         var weatherDescription = weatherForecast[i].summary;
         var weatherIconUrl = '<i class="wi wi-forecast-io-' + weatherForecast[i].icon + '"></i>';
-        var weatherDate = weatherForecast[i].time;
+        var weatherDate = new Date(weatherForecast[i].time*1000).toISOString().substring(5, 10); //.substring(0, 10);
 
         var weatherValue = {
             date: weatherDate,

@@ -11,7 +11,6 @@ var mammothLodging = [
     { name: "Rodeway Inn Wildwood Inn", location: { lat: 37.649133, lng: -118.976446 }},
     { name: "M Inn Mammoth", location: { lat: 37.647426, lng: -118.976800 }},
     { name: "Shilo Inn Suites", location: { lat: 37.646093, lng: -118.964614 }},
-    { name: "Sierra Lodge", location: { lat: 37.649185, lng: -118.974785 }},
     { name: "Travelodge", location: { lat: 37.649304, lng: -118.974173 }},
     { name: "Alpenhof Lodge", location: { lat: 37.650034, lng: -118.983540 }}
 ];
