@@ -12,12 +12,21 @@ document.getElementById('weatherWindow').addEventListener('click', function() {
   $(".weatherInfoButton").find("span").toggleClass('glyphicon-menu-down').toggleClass('glyphicon-menu-up');
 });
 
-var owmIconUrl = "http://openweathermap.org/img/w/";
-var ownLocationZip = "93546,us";  // Mammoth Lakes, CA
-var owmCityId = 5370006;  // Mammmoth Lakes, CA
-var owmKey = "363a750eba84b06b38896944ddd563f9";
-var owmUrl = "http://api.openweathermap.org/data/2.5/forecast?id=" + owmCityId + "&APPID=" + owmKey;
+// // Variables for for Open Weather Map
+// var owmIconUrl = "http://openweathermap.org/img/w/";
+// var ownLocationZip = "93546,us";  // Mammoth Lakes, CA
+// var owmCityId = 5370006;  // Mammmoth Lakes, CA
+// var owmKey = "363a750eba84b06b38896944ddd563f9";
+// var owmUrl = "http://api.openweathermap.org/data/2.5/forecast?id=" + owmCityId + "&APPID=" + owmKey;
 
+// Variables for Dark Sky
+var darkSkyUrl = "https://api.darksky.net/forecast/";
+var darkSkyKey = "19d44a25d3797ee6bb826a9c306e6d4c"
+var darkSkyLoc = { lat: 37.649123, lng: -118.977546 }
+var weatherApiUrl = darkSkyUrl + darkSkyKey + '/' + darkSkyLoc.lat + ',' + darkSkyLoc.lng;
+
+
+var weatherForecast;
 // Weather Model for KnockoutJS
 // This function takes the 5-day forecast result from Open Weather Map API call
 // as an argument and creates a ko.observableArray to display the weather
@@ -33,20 +42,20 @@ var weatherModel = function() {
     ** If localStorage variables are null or if last update is longer than 3 hours (10800000 ms);
     ** the API is called and localStorage var are updated.
     */
-    if (( typeof(localStorage.owmCallTime) === 'undefined') ||
-        ( typeof(localStorage.owmWeatherForecast)  === 'undefined' ) ||
-        (Date.now() - localStorage.owmCallTime) > 10800000 ) {
+    if (( typeof(localStorage.weatherUpdateTime) === 'undefined') ||
+        ( typeof(localStorage.weatherForecastResponse)  === 'undefined' ) ||
+        (Date.now() - localStorage.weatherUpdateTime) > 10800000 ) {
             console.log('Requesting API...');
             $.ajax({
-                url: owmUrl,
+                url: weatherApiUrl,
                 dataType: "jsonp",
 
             })
             .done(function(response) {
                     console.log(response);
-                    localStorage.owmWeatherForecast = JSON.stringify(response);
-                    localStorage.owmCallTime = Date.now();
-                    weatherData = JSON.parse(localStorage.owmWeatherForecast);
+                    localStorage.weatherForecastResponse = JSON.stringify(response);
+                    localStorage.weatherUpdateTime = Date.now();
+                    weatherData = JSON.parse(localStorage.weatherForecastResponse);
             })
             .error(function (jqXHR, exception) {
                 console.log(jqXHR.status, exception);
@@ -54,26 +63,32 @@ var weatherModel = function() {
             });
     } else {
             console.log('Forecast data is current...');
-            console.log('Last updated: ', new Date(JSON.parse(localStorage.owmCallTime)));
-            weatherData = JSON.parse(localStorage.owmWeatherForecast);
+            console.log('Last updated: ', new Date(JSON.parse(localStorage.weatherUpdateTime)));
+            weatherData = JSON.parse(localStorage.weatherForecastResponse);
     }
 
-    var weatherForecast = weatherData.list;
+    // var weatherForecast = weatherData.list;
+    weatherForecast = weatherData.daily.data;
 
     // Get forecast information from weather data. 8 weather points are taken per day,
     // therefore, iterate by 8 to get daily forecast value
-    for ( var i = 0; i < weatherForecast.length; i += 8 ) {
-        var weatherDescription = weatherForecast[i].weather[0].description;
-        var weatherIconUrl = '<img src="' + owmIconUrl + weatherForecast[i].weather[0].icon + '.png">';
-        var weatherDate = weatherForecast[i].dt_txt.substring(5, 10);
+    for ( var i = 0; i < weatherForecast.length; i++ ) {
+        // var weatherDescription = weatherForecast[i].weather[0].description;
+        // var weatherIconUrl = '<img src="' + owmIconUrl + weatherForecast[i].weather[0].icon + '.png">';
+        // var weatherDate = weatherForecast[i].dt_txt.substring(5, 10);
+        var weatherDescription = weatherForecast[i].summary;
+        var weatherIconUrl = '<i class="wi wi-forecast-io-' + weatherForecast[i].icon + '"></i>';
+        var weatherDate = weatherForecast[i].time;
 
         var weatherValue = {
             date: weatherDate,
             icon: weatherIconUrl,
             desc: weatherDescription
         };
+
         weatherArray.push(weatherValue);
     }
+
     return weatherArray();
 };
 

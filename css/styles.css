@@ -21,6 +21,11 @@ hr {
 /*********************************************
 * Weather Info from OpenWeatherMap.com
 *********************************************/
+i.wi {
+	color: white;
+	font-weight: bold;
+	font-size: 25px;
+}
 .weatherGlyph {
 	background: #E6E6E6;
 	border: 1px solid black;
@@ -61,15 +66,19 @@ hr {
 
 }
 
+.weatherTable {
+	padding-left: 5px;
+	border-left: 5px;
+}
 
 #weatherInfo {
 	color: #00ffff;
 	list-style: none;
 }
 
-.weatherTable {
-	padding-left: 5px;
-	border-left: 5px;
+a#darkSkyLink {
+	color: white;
+	text-shadow: 0 0 4px black;
 }
 
 /*********************************************

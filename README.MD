@@ -26,3 +26,5 @@ In this project, I am using the following:
 - Google Maps Styling Wizard [Styling Wizard: Google Maps](https://mapstyle.withgoogle.com/ "Google Maps Styling Wizard")
 - Open Weather Map API [openweathermap.org](http://openweathermap.org "Open Weather Map")
 - Knockout.js [knockoutjs.com](http://knockoutjs.com "Knockout JS")
+- Weather Icons [Weather Icons](https://erikflowers.github.io/weather-icons/j "Weather Icons")
+- Dark Sky [DarkSky.net](https://darsky.net/ "DarkSky")

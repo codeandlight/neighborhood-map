@@ -17,6 +17,7 @@
     <!-- Custom CSS -->
     <link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
     <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/weather-icons.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,6 +40,19 @@
                 <p>Find a place to stay along the main road and find things to do while you're not skiing or snowboarding at Mammoth Mountain!</p>
             </div>
             <hr>
+            <i class="wi wi-forecast-io-clear-day"></i>
+            <i class="wi wi-forecast-io-clear-night"></i>
+            <i class="wi wi-forecast-io-rain"></i>
+            <i class="wi wi-forecast-io-snow"></i>
+            <i class="wi wi-forecast-io-sleet"></i>
+            <i class="wi wi-forecast-io-wind"></i>
+            <i class="wi wi-forecast-io-fog"></i>
+            <i class="wi wi-forecast-io-cloudy"></i>
+            <i class="wi wi-forecast-io-partly-cloudy-day"></i>
+            <i class="wi wi-forecast-io-partly-cloudy-nght"></i>
+            <i class="wi wi-forecast-io-hail"></i>
+            <i class="wi wi-forecast-io-thunderstorm"></i>
+            <i class="wi wi-forecast-io-tornado"></i>
         </div>
         <!-- /#sidebar-wrapper -->
 
@@ -51,7 +65,7 @@
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-menu-right"></span></a>
                         </div>
                         <div id="weatherWindow" class="weatherInfoButton">
-                        <h5>Weather Forecast <span class="weatherGlyph glyphicon glyphicon-menu-up"></span></h5>
+                            <h5>Weather Forecast <span class="weatherGlyph glyphicon glyphicon-menu-up"></span></h5>
                         </div>
                         <div class="weatherInfoWindow">
                             <div data-bind="ifnot: weatherList"><p>Forecast not available</p></div>
@@ -65,6 +79,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <span id="darkSkyLink"><a id="darkSkyLink" href="https://darksky.net/poweredby">Powered by Dark Sky</a></span>
                             <!-- /ko -->
                         </div>
                         <div id="map"></div>
