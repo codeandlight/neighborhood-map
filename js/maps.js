@@ -4,15 +4,15 @@ Google Maps Javascript
 
 // List of locations
 var mammothLodging = [
-    { name: "Cinnabon Bear Inn", location: { lat: 37.646934, lng: -118.971888 }},
-    { name: "Quality Inn", location: { lat: 37.648242, lng: -118.975139 }},
-    { name: "Innsbruck Lodge", location: { lat: 37.651181, lng: -118.982188 }},
-    { name: "Best Western Plus High Sierra Hotel", location: { lat: 37.648938, lng: -118.969333 }},
-    { name: "Rodeway Inn Wildwood Inn", location: { lat: 37.649133, lng: -118.976446 }},
-    { name: "M Inn Mammoth", location: { lat: 37.647426, lng: -118.976800 }},
-    { name: "Shilo Inn Suites", location: { lat: 37.646093, lng: -118.964614 }},
-    { name: "Travelodge", location: { lat: 37.649304, lng: -118.974173 }},
-    { name: "Alpenhof Lodge", location: { lat: 37.650034, lng: -118.983540 }}
+    { name: "Cinnamon Bear Inn", yelpId: "cinnamon-bear-inn-mammoth-lakes", location: { lat: 37.646934, lng: -118.971888 }},
+    { name: "Quality Inn", yelpId: "quality-inn-near-mammoth-mountain-ski-resort-mammoth-lakes", location: { lat: 37.648242, lng: -118.975139 }},
+    { name: "Innsbruck Lodge", yelpId: "innsbruck-lodge-mammoth-lakes", location: { lat: 37.651181, lng: -118.982188 }},
+    { name: "Best Western Plus High Sierra Hotel", yelpId: "best-western-plus-high-sierra-hotel-mammoth-lakes-3", location: { lat: 37.648938, lng: -118.969333 }},
+    { name: "Rodeway Inn Wildwood Inn", yelpId: "rodeway-inn-wildwood-inn-mammoth-lakes", location: { lat: 37.649133, lng: -118.976446 }},
+    { name: "M Inn Mammoth", yelpId: "the-m-inn-mammoth-mammoth-lakes", location: { lat: 37.647426, lng: -118.976800 }},
+    { name: "Shilo Inn Suites", yelpId: "shilo-inn-suites-hotel-mammoth-lakes-mammoth-lakes", location: { lat: 37.646093, lng: -118.964614 }},
+    { name: "Travelodge", yelpId: "travelodge-mammoth-lakes-mammoth-lakes", location: { lat: 37.649304, lng: -118.974173 }},
+    { name: "Alpenhof Lodge", yelpId: "alpenhof-lodge-mammoth-lakes", location: { lat: 37.650034, lng: -118.983540 }}
 ];
 
 // Initialize map variable
@@ -255,7 +255,7 @@ function initMap() {
 
     // Create a new bounds object to adjust the boundaries of the map
   	var bounds = new google.maps.LatLngBounds();
-	for ( var i = 0; i < mammothLodging.length; i++ ) {
+        for ( var i = 0; i < mammothLodging.length; i++ ) {
 		var position = mammothLodging[i].location;
 		var title = mammothLodging[i].name;
 
@@ -286,7 +286,7 @@ function initMap() {
     function populateInfoWindow( marker, infowindow ) {
         if ( infowindow.marker != marker ) {
             infowindow.marker = marker;
-            infowindow.setContent('<div><h2>' + marker.title + '</h2></div>');
+            infowindow.setContent('<div><h2>' + marker.title + '</h2><p>' + mammothLodging[marker.id].yelpId + '</p></div>');
             infowindow.open( map, marker );
         }
 
