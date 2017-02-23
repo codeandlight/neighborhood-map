@@ -30,55 +30,37 @@
 </head>
 
 <body>
-<header>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="fancyfont col-md-5">Visit Mammoth Lakes!
-            </div>
-           <div class="col-md-7 weatherBox">
-                <ul class="weatherBoxList" data-bind="foreach: weatherList">
-                    <div>
-                    <li class="weatherBoxList">
-                        <span data-bind="text: date"></span>
-                        <span data-bind="html: icon"></span>
-                        </li>
-                    </div>
-                    <!--
-                    <li class="weatherBox">one</li>
-                    <li class="weatherBox">two</li>
-                    <li class="weatherBox">three</li> -->
-                </ul>
-           </div>
-    </div>
-</header>
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" href="#">Visit Mammoth Lakes!  <span id="currentForecast" data-bind="html: weatherList[0].icon"></span></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Weather Forecast <span class="caret"></span></a>
+          <ul class="weatherForecast dropdown-menu" data-bind="foreach: weatherList">
+            <li id="weatherForecastList" class="navbar-text weatherForecast">
+                <span id="weatherDate" data-bind="text: date"></span>
+                <span id="weatherIcon" data-bind="html: icon"></span><br>
+                <span id="weatherDesc" data-bind="text: desc"></span>
+            </li>
+         <!--    <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="#">One more separated link</a></li> -->
           </ul>
         </li>
       </ul>

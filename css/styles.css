@@ -23,17 +23,36 @@ header {
 	font-size: 32px;
 }
 
-.weatherBox {
-	text-align: center;
-	/*height: 100px;*/
-	/*overflow: scroll;*/
+#currentForecast {
+	padding-left: 15px;
 }
+
+ul.weatherForecast.dropdown-menu {
+	min-width: 35vw;
+}
+
+#weatherForecastList {
+	padding-left: 10px;
+	padding-right: 5px;
+}
+
+/*#weatherDesc {
+	max-width: 400px;
+}*/
+/*
+#weatherForecastList {
+	width: 500px;
+}*/
+
+/*.weatherBox {
+	text-align: center;
+}
+
 ul.weatherBoxList {
 	list-style-type: none;
 	border: 0;
 	padding: 0;
 
-	/*width: 25%;*/
 }
 
 li.weatherBoxList {
@@ -52,7 +71,7 @@ ul.weatherstuff {
 }
 header li.weatherStuff {
 	display: inline !important;
-}
+}*/
 
 
 hr {
