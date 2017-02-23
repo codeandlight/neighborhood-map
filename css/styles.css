@@ -6,9 +6,74 @@ html, body {
 	font-size: 14px;
 }
 
+/*****
+Header
+*****/
+header {
+	margin: 0;
+	padding: 10px;
+	background: black;
+	color: white;
+	height: 75px;
+}
+
+.fancyfont {
+	/*font-family: 'Caveat Brush', cursive;*/
+	text-shadow: 0 0 4px blue;
+	font-size: 32px;
+}
+
+.weatherBox {
+	text-align: center;
+	/*height: 100px;*/
+	/*overflow: scroll;*/
+}
+ul.weatherBoxList {
+	list-style-type: none;
+	border: 0;
+	padding: 0;
+
+	/*width: 25%;*/
+}
+
+li.weatherBoxList {
+	display: inline;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 55px;
+	float: left;
+}
+
+ul.weatherstuff {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+}
+header li.weatherStuff {
+	display: inline !important;
+}
+
+
 hr {
 	width: 75%;
 }
+
+.headerBar {
+/*	height: 100px;
+	background: black;
+	margin-top: 0;
+	padding: 0;
+	margin: 0;
+	font-family: 'Caveat Brush', cursive;
+	color: white;
+	text-shadow: 0 0 4px blue;
+	padding: 10px;*/
+}
+
+/*****
+Map Box
+*****/
 
 .map-box {
 	height: 100%;
@@ -127,11 +192,6 @@ a#darkSkyLink {
 	color: white;
 }
 
-.fancyfont {
-	font-family: 'Caveat Brush', cursive;
-	color: white;
-	text-shadow: 0 0 4px blue;
-}
 
 /*********************************************
 * Toggle menu button visibility and place over map

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Ski Mammoth Mountain - California</title>
+    <title>Visit Mammoth Lakes - California</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -30,53 +30,118 @@
 </head>
 
 <body>
-    <div id="wrapper">
-
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <div class="sidebar-info">
-                <h1 class="fancyfont">Visit Mammoth Lakes!</h1>
-                <p>Find a place to stay along the main road and find things to do while you're not skiing or snowboarding at Mammoth Mountain!</p>
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="fancyfont col-md-5">Visit Mammoth Lakes!
             </div>
-            <hr>
+           <div class="col-md-7 weatherBox">
+                <ul class="weatherBoxList" data-bind="foreach: weatherList">
+                    <div>
+                    <li class="weatherBoxList">
+                        <span data-bind="text: date"></span>
+                        <span data-bind="html: icon"></span>
+                        </li>
+                    </div>
+                    <!--
+                    <li class="weatherBox">one</li>
+                    <li class="weatherBox">two</li>
+                    <li class="weatherBox">three</li> -->
+                </ul>
+           </div>
+    </div>
+</header>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
         </div>
-        <!-- /#sidebar-wrapper -->
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<main>
+    <div id="map"></div>
+</main>
 
         <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="no-padding col-lg-12 map-box">
-                        <div id="menu-toggle-button">
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-menu-right"></span></a>
-                        </div>
-                        <div id="weatherWindow" class="weatherInfoButton">
-                            <h5>Weather Forecast <span class="weatherGlyph glyphicon glyphicon-menu-up"></span></h5>
-                        </div>
-                        <div class="weatherInfoWindow">
-                            <div data-bind="ifnot: weatherList"><p>Forecast not available</p></div>
-                            <!-- ko if: weatherList -->
-                                <table id="weatherInfo">
-                                    <tbody data-bind="foreach: weatherList">
-                                        <tr>
-                                            <td data-bind="text: date"></td>
-                                            <td data-bind="html: icon"></td>
-                                            <td data-bind="text: desc"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <span id="darkSkyLink"><a id="darkSkyLink" href="https://darksky.net/poweredby" target="_blank">Powered by Dark Sky</a></span>
-                            <!-- /ko -->
-                        </div>
-                        <div id="map"></div>
-                    </div>
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="no-padding col-lg-12 map-box">
+                <div id="menu-toggle-button">
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-menu-right"></span></a>
                 </div>
+                <div id="weatherWindow" class="weatherInfoButton">
+                    <h5>Weather Forecast <span class="weatherGlyph glyphicon glyphicon-menu-up"></span></h5>
+                </div>
+                <div class="weatherInfoWindow">
+                    <div data-bind="ifnot: weatherList"><p>Forecast not available</p></div>
+                    <!-- ko if: weatherList -->
+                        <table id="weatherInfo">
+                            <tbody data-bind="foreach: weatherList">
+                                <tr>
+                                    <td data-bind="text: date"></td>
+                                    <td data-bind="html: icon"></td>
+                                    <td data-bind="text: desc"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span id="darkSkyLink"><a id="darkSkyLink" href="https://darksky.net/poweredby" target="_blank">Powered by Dark Sky</a></span>
+                    <!-- /ko -->
+                </div>
+                <!-- <div id="map"></div> -->
             </div>
         </div>
-        <!-- /#page-content-wrapper -->
-
     </div>
+</div>
+<!-- /#page-content-wrapper -->
+
     <!-- /#wrapper -->
 
     <script src="js/libs/jquery.js"></script>
