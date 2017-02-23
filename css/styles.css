@@ -19,6 +19,27 @@ hr {
 }
 
 /*********************************************
+* Infowindows
+*********************************************/
+.yelpInfoWindow {
+	font-size: 12px;
+	width: 300px;
+}
+
+.yelpImgRating {
+	width: 50%;
+}
+
+#yelpImg {
+	min-height: 100%;
+	min-width: 100%;
+}
+
+#yelpRatings {
+	width: 84px;
+	height: 17px;
+}
+/*********************************************
 * Weather Info from OpenWeatherMap.com
 *********************************************/
 i.wi {

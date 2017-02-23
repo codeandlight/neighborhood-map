@@ -28,3 +28,4 @@ In this project, I am using the following:
 - Knockout.js [knockoutjs.com](http://knockoutjs.com "Knockout JS")
 - Weather Icons [Weather Icons](https://erikflowers.github.io/weather-icons/j "Weather Icons")
 - Dark Sky [DarkSky.net](https://darsky.net/ "DarkSky")
+- Yelp OAuth JS [Github.com](https://gist.github.com/mnemonicflow/1b90ef0d294c692d24458b8378054c81 "Mnemonic")

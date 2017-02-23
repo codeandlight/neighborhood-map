@@ -255,7 +255,7 @@ function initMap() {
 
     // Create a new bounds object to adjust the boundaries of the map
   	var bounds = new google.maps.LatLngBounds();
-        for ( var i = 0; i < mammothLodging.length; i++ ) {
+    for ( var i = 0; i < mammothLodging.length; i++ ) {
 		var position = mammothLodging[i].location;
 		var title = mammothLodging[i].name;
 
@@ -286,13 +286,50 @@ function initMap() {
     function populateInfoWindow( marker, infowindow ) {
         if ( infowindow.marker != marker ) {
             infowindow.marker = marker;
-            infowindow.setContent('<div><h2>' + marker.title + '</h2><p>' + mammothLodging[marker.id].yelpId + '</p></div>');
-            infowindow.open( map, marker );
+            infowindow.setContent(null);
+
+            var message = {
+                'action': 'https://api.yelp.com/v2/business/' + mammothLodging[marker.id].yelpId,
+                'method' : 'GET',
+                'parameters' : parameters
+            };
+
+
+            OAuth.setTimestampAndNonce(message);
+            OAuth.SignatureMethod.sign(message, accessor);
+            var parameterMap = OAuth.getParameterMap(message.parameters);
+            $.ajax({
+                'url' : message.action,
+                'data' : parameterMap,
+                'dataType' : 'jsonp',
+                'jsonpCallback' : 'cb',
+                'cache' : true
+            })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
+
+            })
+                .done(function(data, textStatus, jqXHR) {
+                    var businessInfo = JSON.parse(JSON.stringify(data));
+                    console.log('status['+ textStatus + ']');
+                    infowindow.setContent('<div class="yelpInfoWindow">' +
+                                            '<h4>' + businessInfo.name + '</h4>' +
+                                            '<span><a href="' + businessInfo.url + '" target="_blank" alt="Yelp Link">See reviews on Yelp.com</a></span>' +
+                                            // '<div>' + businessInfo.location.display_address + '</div>' +
+                                            '<div><img id="yelpRatings" src="' + businessInfo.rating_img_url + '" alt="rating: ' + businessInfo.rating + '"></div>' +
+                                            '<div><img id="yelpImg" src="' +  businessInfo.image_url + '" alt="' + businessInfo.name + '"></div>' +
+                                        '</div>');
+
+                // infowindow.setContent('<div><h2>' + marker.title + '</h2><p>' + mammothLodging[marker.id].yelpId + '</p></div>');
+                infowindow.open( map, marker );
+            });
         }
 
         infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
         });
+
+
     }
 }
 
