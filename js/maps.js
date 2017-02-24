@@ -317,7 +317,7 @@ function initMap() {
                                         '<div id="yelpBusinessInfo">' +
                                         '<div class="yelpInfo"><img id="yelpImg" src="' + businessInfo.image_url + '" alt="' + businessInfo.name + '"></div>' +
                                         '<div><img id="yelpRatings" src="' + businessInfo.rating_img_url + '" alt="rating: ' + businessInfo.rating + '"></div>' +
-                                        '<div id="yelpPhone">Phone: <a href="tel:' + businessInfo.phone + '">' + businessInfo.display_phone + '</a></div>' +
+                                        '<div id="yelpPhone"><span class="glyphicon glyphicon-phone-alt"></span> <a href="tel:' + businessInfo.phone + '">' + businessInfo.display_phone + '</a></div>' +
                                         '<span id="yelpBusinessAddress">' + businessInfo.location.display_address + '</span><br>' +
                                         '<span id="yelpSnippet">' + businessInfo.snippet_text + '</span><br>' +
                                         '<span><a href="' + businessInfo.url + '" target="_blank" alt="Yelp Link">See more reviews on Yelp.com</a></span>' +
