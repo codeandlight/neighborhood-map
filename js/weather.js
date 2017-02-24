@@ -3,14 +3,14 @@ OpenWeatherMap.org
 */
 
 // Toggle Weather Forecast Window
-document.getElementById('weatherWindow').addEventListener('click', function() {
-  if ($(".weatherInfoWindow").is( ":hidden" )) {
-      $(".weatherInfoWindow").slideDown();
-    } else {
-      $(".weatherInfoWindow").slideUp();
-    }
-  $(".weatherInfoButton").find("span").toggleClass('glyphicon-menu-down').toggleClass('glyphicon-menu-up');
-});
+// document.getElementById('weatherWindow').addEventListener('click', function() {
+//   if ($(".weatherInfoWindow").is( ":hidden" )) {
+//       $(".weatherInfoWindow").slideDown();
+//     } else {
+//       $(".weatherInfoWindow").slideUp();
+//     }
+//   $(".weatherInfoButton").find("span").toggleClass('glyphicon-menu-down').toggleClass('glyphicon-menu-up');
+// });
 
 // // Variables for for Open Weather Map
 // var owmIconUrl = "http://openweathermap.org/img/w/";

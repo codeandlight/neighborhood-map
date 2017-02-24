@@ -6,6 +6,9 @@ html, body {
 	font-size: 14px;
 }
 
+hr {
+	width: 75%;
+}
 /*****
 Header
 *****/
@@ -23,71 +26,25 @@ header {
 	font-size: 32px;
 }
 
+
+/*****
+Weather Information
+*****/
+i.wi {
+	font-weight: bold;
+	font-size: 25px;
+}
 #currentForecast {
 	padding-left: 15px;
 }
 
 ul.weatherForecast.dropdown-menu {
-	min-width: 35vw;
+	min-width: 30vw;
 }
 
 #weatherForecastList {
 	padding-left: 10px;
 	padding-right: 5px;
-}
-
-/*#weatherDesc {
-	max-width: 400px;
-}*/
-/*
-#weatherForecastList {
-	width: 500px;
-}*/
-
-/*.weatherBox {
-	text-align: center;
-}
-
-ul.weatherBoxList {
-	list-style-type: none;
-	border: 0;
-	padding: 0;
-
-}
-
-li.weatherBoxList {
-	display: inline;
-	padding-left: 5px;
-	padding-right: 5px;
-	width: 55px;
-	float: left;
-}
-
-ul.weatherstuff {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-
-}
-header li.weatherStuff {
-	display: inline !important;
-}*/
-
-
-hr {
-	width: 75%;
-}
-
-.headerBar {
-/*	height: 100px;
-	background: black;
-	margin-top: 0;
-	padding: 0;
-	margin: 0;
-	font-family: 'Caveat Brush', cursive;
-	color: white;
-	text-shadow: 0 0 4px blue;
-	padding: 10px;*/
 }
 
 /*****
@@ -96,6 +53,7 @@ Map Box
 
 .map-box {
 	height: 100%;
+	padding-top: 60px;
 }
 
 #map {
@@ -107,131 +65,54 @@ Map Box
 *********************************************/
 .yelpInfoWindow {
 	font-size: 12px;
-	width: 300px;
+	height: 150px;
+	width: 40vw;
 }
 
-.yelpImgRating {
-	width: 50%;
+#yelpBusinessName {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	border-bottom: 1px solid gray;
+}
+
+.yelpInfo {
+	margin-top: 5px;
+	float:left;
+	margin-right: 10px;
 }
 
 #yelpImg {
-	min-height: 100%;
-	min-width: 100%;
+	height: 100px;
+	float: left;
+	margin-bottom: 5px;
+}
+
+#yelpBusinessInfo {
+	margin-bottom: 5px;
 }
 
 #yelpRatings {
 	width: 84px;
 	height: 17px;
 }
-/*********************************************
-* Weather Info from OpenWeatherMap.com
-*********************************************/
-i.wi {
+
+#yelpPhone {
+	text-decoration: none;
+	font-size: 14px;
 	font-weight: bold;
-	font-size: 25px;
-}
-.weatherGlyph {
-	background: #E6E6E6;
-	border: 1px solid black;
-	color: black;
-	padding: 3px;
-	margin-left: 10px;
+	bottom-margin: 0;
+	/*font-size: 12px;*/
 }
 
-.weatherInfoButton {
-	background: #00ffff;
-	background: rgba(76, 154, 178, 0.4);
-	color: white;
-	height: 36px;
-	padding: 0 10px 10px 10px;
-	position: absolute;
-	right: 0;
-	text-align: center;
-	text-shadow: 0 0 4px black;
-	top: 0;
-	width: 300px;
-	z-index: 30;
+#yelpBusinessAddress {
+	font-weight: bold;
+	/*font-size: 12px;*/
 }
 
-.weatherInfoWindow {
-	background: #00ffff;
-	background: rgba(76, 154, 178, 0.4);
-	border-bottom-left-radius: 10px;
-	border-color: white;
-	border-width: 3px;
-	color: white;
-	padding: 10px;
-	position: absolute;
-	right: 0;
-	top: 36px;
-	text-shadow: 0 0 8px black;
-	width: 300px;
-	z-index: 25;
-
-}
-
-#weatherInfo td {
-	min-width: 50px;
-}
-
-#weatherInfo tr {
-	border-bottom: 1px solid white;
-}
-
-.weatherTable {
-	padding-left: 5px;
-	border-left: 5px;
-}
-
-#weatherInfo {
-	list-style: none;
-}
-
-a#darkSkyLink {
-	color: white;
-	text-shadow: 0 0 4px black;
-}
-
-/*********************************************
-* Custom styling for simple-sidebar.css
-*********************************************/
-
-/*Remove padding around map*/
-.no-padding, #page-content-wrapper {
-	padding: 0;
-}
-
-#sidebar-wrapper {
-	height: 100vh;
-}
-
-.sidebar-info {
-	padding: 10px;
-	padding-bottom: 0;
-	color: white;
-}
-
-
-/*********************************************
-* Toggle menu button visibility and place over map
-*********************************************/
-
-#menu-toggle-button {
-	left: 0;
-	position: absolute;
-	top: 10px;
-	z-index: 3;
-}
-
-@media (min-width:768px) {
-	#menu-toggle-button {
-		display: none;
-	}
-}
-
-@media (max-width: 767px) {
-	#menu-toggle-button {
-		display: inline;
-	}
+#yelpSnippet {
+	margin-top: 15px;
+	font-style: italic;
+	/*font-size: 12px;*/
 }
 

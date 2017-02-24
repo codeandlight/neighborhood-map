@@ -31,7 +31,7 @@
 
 <body>
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-fixed-top navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -49,12 +49,15 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Weather Forecast <span class="caret"></span></a>
-          <ul class="weatherForecast dropdown-menu" data-bind="foreach: weatherList">
+          <ul class="weatherForecast dropdown-menu">
+            <!-- ko foreach: weatherList -->
             <li id="weatherForecastList" class="navbar-text weatherForecast">
                 <span id="weatherDate" data-bind="text: date"></span>
                 <span id="weatherIcon" data-bind="html: icon"></span><br>
                 <span id="weatherDesc" data-bind="text: desc"></span>
             </li>
+            <!-- /ko -->
+            <li><a id="darkSkyLink" href="https://darksky.net/poweredby" target="_blank">Powered by Dark Sky</a></li>
          <!--    <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
@@ -90,41 +93,6 @@
 <main>
     <div id="map"></div>
 </main>
-
-        <!-- Page Content -->
-<div id="page-content-wrapper">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="no-padding col-lg-12 map-box">
-                <div id="menu-toggle-button">
-                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-menu-right"></span></a>
-                </div>
-                <div id="weatherWindow" class="weatherInfoButton">
-                    <h5>Weather Forecast <span class="weatherGlyph glyphicon glyphicon-menu-up"></span></h5>
-                </div>
-                <div class="weatherInfoWindow">
-                    <div data-bind="ifnot: weatherList"><p>Forecast not available</p></div>
-                    <!-- ko if: weatherList -->
-                        <table id="weatherInfo">
-                            <tbody data-bind="foreach: weatherList">
-                                <tr>
-                                    <td data-bind="text: date"></td>
-                                    <td data-bind="html: icon"></td>
-                                    <td data-bind="text: desc"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <span id="darkSkyLink"><a id="darkSkyLink" href="https://darksky.net/poweredby" target="_blank">Powered by Dark Sky</a></span>
-                    <!-- /ko -->
-                </div>
-                <!-- <div id="map"></div> -->
-            </div>
-        </div>
-    </div>
-</div>
-<!-- /#page-content-wrapper -->
-
-    <!-- /#wrapper -->
 
     <script src="js/libs/jquery.js"></script>
     <script src="js/libs/bootstrap.min.js"></script>

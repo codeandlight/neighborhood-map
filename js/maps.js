@@ -312,13 +312,17 @@ function initMap() {
                 .done(function(data, textStatus, jqXHR) {
                     var businessInfo = JSON.parse(JSON.stringify(data));
                     console.log('status['+ textStatus + ']');
-                    infowindow.setContent('<div class="yelpInfoWindow">' +
-                                            '<h4>' + businessInfo.name + '</h4>' +
-                                            '<span><a href="' + businessInfo.url + '" target="_blank" alt="Yelp Link">See reviews on Yelp.com</a></span>' +
-                                            // '<div>' + businessInfo.location.display_address + '</div>' +
-                                            '<div><img id="yelpRatings" src="' + businessInfo.rating_img_url + '" alt="rating: ' + businessInfo.rating + '"></div>' +
-                                            '<div><img id="yelpImg" src="' +  businessInfo.image_url + '" alt="' + businessInfo.name + '"></div>' +
-                                        '</div>');
+                    var contentString = '<div class="yelpInfoWindow">' +
+                                        '<div id="yelpBusinessName">' + businessInfo.name + '</div>' +
+                                        '<div id="yelpBusinessInfo">' +
+                                        '<div class="yelpInfo"><img id="yelpImg" src="' + businessInfo.image_url + '" alt="' + businessInfo.name + '"></div>' +
+                                        '<div><img id="yelpRatings" src="' + businessInfo.rating_img_url + '" alt="rating: ' + businessInfo.rating + '"></div>' +
+                                        '<div id="yelpPhone">Phone: <a href="tel:' + businessInfo.phone + '">' + businessInfo.display_phone + '</a></div>' +
+                                        '<span id="yelpBusinessAddress">' + businessInfo.location.display_address + '</span><br>' +
+                                        '<span id="yelpSnippet">' + businessInfo.snippet_text + '</span><br>' +
+                                        '<span><a href="' + businessInfo.url + '" target="_blank" alt="Yelp Link">See more reviews on Yelp.com</a></span>' +
+                                        '</div></div>';
+                    infowindow.setContent(contentString);
 
                 // infowindow.setContent('<div><h2>' + marker.title + '</h2><p>' + mammothLodging[marker.id].yelpId + '</p></div>');
                 infowindow.open( map, marker );
