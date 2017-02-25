@@ -5,81 +5,6 @@
 //     $("#wrapper").find("span").toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-left');
 // });
 
-/*
-Dark Sky
-*/
-
-// Variables for Dark Sky
-var darkSkyUrl = "https://api.darksky.net/forecast/";
-var darkSkyKey = "19d44a25d3797ee6bb826a9c306e6d4c";
-var darkSkyLoc = { lat: 37.649123, lng: -118.977546 };
-var weatherApiUrl = darkSkyUrl + darkSkyKey + '/' + darkSkyLoc.lat + ',' + darkSkyLoc.lng;
-
-// Weather Model for KnockoutJS
-// This function takes the 5-day forecast result from Open Weather Map API call
-// as an argument and creates a ko.observableArray to display the weather
-var weatherModel = function(data) {
-
-    var weatherData = JSON.parse(data);
-    var weatherForecast = weatherData.daily.data;
-
-    var weatherArray = ko.observableArray();
-
-    for ( var i = 0; i < weatherForecast.length; i++ ) {
-        var weatherDescription = weatherForecast[i].summary;
-        var weatherIconUrl = '<i class="wi wi-forecast-io-' + weatherForecast[i].icon + '"></i>';
-        var weatherDate = new Date(weatherForecast[i].time*1000).toISOString().substring(5, 10); //.substring(0, 10);
-
-        var weatherValue = {
-            date: weatherDate,
-            icon: weatherIconUrl,
-            desc: weatherDescription
-        };
-
-        weatherArray.push(weatherValue);
-    }
-
-    return weatherArray();
-};
-
-// Weather View Model
-var weatherViewModel = function() {
-    var self = this;
-    // self.weatherData = ko.observable();
-    self.weatherList = ko.observableArray();
-
-    /*
-    ** Calls the Dark Sky Weather Forecast API and sets the response and the time of
-    ** the call to localStorage.
-    ** To reduce calls to the API, localStorage is used to limit the API use
-    ** If localStorage variables are null or if last update is longer than 3 hours (10800000 ms);
-    ** the API is called and localStorage var are updated.
-    */
-    if (( typeof(localStorage.weatherUpdateTime) === 'undefined') ||
-        ( typeof(localStorage.weatherForecastResponse)  === 'undefined' ) ||
-        (Date.now() - localStorage.weatherUpdateTime) > 10800000 ) {
-            console.log('Requesting API...');
-            $.ajax({
-                url: weatherApiUrl,
-                dataType: "jsonp",
-
-            })
-            .done(function(response) {
-                    console.log('response', typeof(response));
-                    localStorage.weatherForecastResponse = JSON.stringify(response);
-                    localStorage.weatherUpdateTime = Date.now();
-                    self.weatherList = new weatherModel(JSON.stringify(response));
-            })
-            .error(function (jqXHR, exception) {
-                console.log(jqXHR.status, exception);
-                self.weatherList = null;
-            });
-    } else {
-            console.log('Forecast data is current...');
-            console.log('Last updated: ', new Date(JSON.parse(localStorage.weatherUpdateTime)));
-            self.weatherList = new weatherModel(localStorage.weatherForecastResponse);
-    }
-};
 
 
 /*
@@ -442,6 +367,124 @@ function initMap() {
     }
 }
 
+/*
+Dark Sky
+*/
+
+// Variables for Dark Sky
+var darkSkyUrl = "https://api.darksky.net/forecast/";
+var darkSkyKey = "19d44a25d3797ee6bb826a9c306e6d4c";
+var darkSkyLoc = { lat: 37.649123, lng: -118.977546 };
+var weatherApiUrl = darkSkyUrl + darkSkyKey + '/' + darkSkyLoc.lat + ',' + darkSkyLoc.lng;
+
+// Weather Model for KnockoutJS
+// This function takes the 5-day forecast result from Open Weather Map API call
+// as an argument and creates a ko.observableArray to display the weather
+var weatherModel = function(data) {
+
+    // var weatherData = JSON.parse(data);
+    // var weatherForecast = weatherData.daily.data;
+
+    var weatherForecast = data;
+    // this.weatherArray = ko.observableArray();
+
+    this.date = ko.observable();
+    this.icon = ko.observable();
+    this.description = ko.observable();
+
+    // console.log(weatherForecast);
+    // console.log(weatherForecast.icon);
+    this.date = ko.observable(new Date(weatherForecast.time*1000).toISOString().substring(5, 10));
+    // var icon = ko.observable('<i class="wi wi-forecast-io-' + weatherForecast.icon + '"></i>');
+    var iconString = "wi wi-forecast-io-" + weatherForecast.icon;
+    this.icon = ko.observable(iconString);
+    this.description = ko.observable(weatherForecast.summary);
+
+    console.log(this.icon());
+
+    // for ( var i = 0; i < weatherForecast.length; i++ ) {
+    //     var weatherDescription = weatherForecast.summary;
+    //     var weatherIconUrl = '<i class="wi wi-forecast-io-' + weatherForecast.icon + '"></i>';
+    //     var weatherDate = new Date(weatherForecast.time*1000).toISOString().substring(5, 10); //.substring(0, 10);
+
+    //     var date = ko.observable(weatherDate);
+    //     var icon = ko.observable(weatherIconUrl);
+    //     var desc = ko.observable(weatherDescription);
+
+    //     var weatherValue = {
+    //         date: weatherDate,
+    //         icon: weatherIconUrl,
+    //         desc: weatherDescription
+    //     };
+
+    //     weatherArray.push(weatherValue);
+    // }
+
+    // return weatherArray();
+};
+
+
+
+// Weather View Model
+var appViewModel = function() {
+    var self = this;
+
+    var tempWeatherObject;
+    // self.weatherData = ko.observable();
+    self.weatherList = ko.observableArray();
+
+    var dailyForecast;
+
+    /*
+    ** Calls the Dark Sky Weather Forecast API and sets the response and the time of
+    ** the call to localStorage.
+    ** To reduce calls to the API, localStorage is used to limit the API use
+    ** If localStorage variables are null or if last update is longer than 3 hours (10800000 ms);
+    ** the API is called and localStorage var are updated.
+    */
+    if (( typeof(localStorage.weatherUpdateTime) === 'undefined') ||
+        ( typeof(localStorage.weatherForecastResponse)  === 'undefined' ) ||
+        (Date.now() - localStorage.weatherUpdateTime) > 10800000 ) {
+            console.log('Requesting API...');
+            $.ajax({
+                url: weatherApiUrl,
+                dataType: "jsonp",
+
+            })
+            .done(function(response) {
+                    // console.log('response: ', typeof(response), response);
+                    tempWeatherObject = JSON.parse(JSON.stringify(response)); // Take response, stringify, parse, then store temporarily
+                    localStorage.weatherForecastResponse = JSON.stringify(response); // Save in localStorage for later
+                    localStorage.weatherUpdateTime = Date.now();
+                    // self.weatherList = new weatherModel(JSON.stringify(response));
+                    console.log(tempWeatherObject.daily);
+                    dailyForecast = tempWeatherObject.daily;  // Assign list of daily weather forecast
+            })
+            .error(function (jqXHR, exception) {
+                console.log(jqXHR.status, exception);
+                self.weatherList = null;
+            });
+    } else {
+            console.log('Forecast data is current...');
+            console.log('Last updated: ', new Date(JSON.parse(localStorage.weatherUpdateTime)));
+            // self.weatherList = new weatherModel(localStorage.weatherForecastResponse);
+            tempWeatherObject = JSON.parse(localStorage.weatherForecastResponse);
+            // console.log(tempWeatherObject.daily);
+            dailyForecast = tempWeatherObject.daily;
+    }
+
+    // console.log(self.dailyForecast.data.length);
+
+
+
+    dailyForecast.data.forEach(function(forecast) {
+      self.weatherList.push( new weatherModel(forecast) );
+    });
+
+    console.log(self.weatherList()[0].date());
+    console.log(self.weatherList()[0].icon());
+    console.log(self.weatherList()[0].description());
+};
 
 
 // // Display Model for KnockoutJS
@@ -465,4 +508,4 @@ function initMap() {
 //     vmB: new appViewModel()
 // };
 
-// ko.applyBindings(masterVM);
+ko.applyBindings( new appViewModel() );
