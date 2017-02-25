@@ -242,6 +242,10 @@ function initMap() {
     // Initialize infowindow to display information
     var infowindow = new google.maps.InfoWindow();
 
+    // Custom marker looks
+    var defaultMarker = makeMarkerIcon('76F5F3', '360CF3');
+    var highlightedMarker = makeMarkerIcon('360CF3', '76F5F3');
+
     // Initialize and create map
     map = new google.maps.Map(document.getElementById('map'), {
         center: mammothLodging[0].location,
@@ -254,18 +258,19 @@ function initMap() {
     });
 
     // Create a new bounds object to adjust the boundaries of the map
-  	var bounds = new google.maps.LatLngBounds();
+    var bounds = new google.maps.LatLngBounds();
     for ( var i = 0; i < mammothLodging.length; i++ ) {
-		var position = mammothLodging[i].location;
-		var title = mammothLodging[i].name;
+        var position = mammothLodging[i].location;
+        var title = mammothLodging[i].name;
 
         var marker = new google.maps.Marker({
-			position: position,
-			title: title,
-			map: map,
-			animation: google.maps.Animation.DROP,
-			id: i
-		});
+            position: position,
+            title: title,
+            map: map,
+      icon: defaultMarker,
+            animation: google.maps.Animation.DROP,
+            id: i
+        });
 
         // Push new marker into markers array
         markers.push(marker);
@@ -273,11 +278,19 @@ function initMap() {
         // Add marker.position to bounds
         bounds.extend(marker.position);
 
+        // Add listeners to change the look of icons
+        marker.addListener('mouseover', function() {
+          this.setIcon(highlightedMarker);
+        });
+        marker.addListener('mouseout', function() {
+          this.setIcon(defaultMarker);
+        });
+
         // Add click event to populate infowindow when marker is clicked
         marker.addListener('click', function() {
             populateInfoWindow(this, infowindow);
         });
-	}
+    }
 
     // Fit the map boundaries to all marker positions
     map.fitBounds(bounds);
@@ -335,6 +348,14 @@ function initMap() {
 
 
     }
+
+    // Create custom marker icons
+    function makeMarkerIcon(markerColor, markerCenter) {
+      var markerImage = new google.maps.MarkerImage(
+        'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|' + markerColor + '|' + markerCenter
+        );
+      return markerImage;
+    }
 }
 
 // Menu Toggle
@@ -344,4 +365,25 @@ $("#menu-toggle").click(function(e) {
     $("#wrapper").find("span").toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-left');
 });
 
+// // Display Model for KnockoutJS
+// function appModel(lodge) {
+//     this.lodgeName = ko.observable(lodge.name);
 
+// }
+
+// function appViewModel() {
+//     self = this;
+
+//     self.lodgingInfoList = ko.observableArray();
+
+//     mammothLodging.forEach(function(lodge) {
+//         self.lodgingInfoList.push( new appModel(lodge) );
+//     });
+// }
+
+// var masterVM = {
+//     vmA: new weatherViewModel(),
+//     vmB: new appViewModel()
+// };
+
+// ko.applyBindings(masterVM);

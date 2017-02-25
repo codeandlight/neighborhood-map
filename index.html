@@ -51,7 +51,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Weather Forecast <span class="caret"></span></a>
           <ul class="weatherForecast dropdown-menu">
             <li><a id="darkSkyLink" href="https://darksky.net/poweredby" target="_blank">Powered by Dark Sky</a></li>
-            <!-- ko foreach: weatherList -->
+            <!-- ko foreach: masterVM.vmA -->
             <li id="weatherForecastList" class="navbar-text weatherForecast">
                 <span id="weatherDate" data-bind="text: date"></span>
                 <span id="weatherIcon" data-bind="html: icon"></span>
@@ -85,6 +85,15 @@
 </nav>
 
 <main>
+    <div id="displayInfo">
+        <h3>Information</h3>
+        <div class="koMapInfo" data-bind="with: lodgingInfoList"></div>
+        <ul data-bind="foreach: lodgingInfoList">
+            <li data-bind="text: lodgeName"></li>
+        </ul>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, explicabo a. Animi perspiciatis ut consectetur fugiat vitae quos, iure magnam cupiditate dignissimos exercitationem consequuntur. Quo maiores eum natus nostrum! Asperiores.
+        </p>
+    </div>
     <div id="map"></div>
 </main>
 
