@@ -368,9 +368,18 @@ function initMap() {
 }
 
 /*
+Hotel Model
+*/
+var hotelModel = function(data) {
+	this.name = ko.observable(data.name);
+	this.yelpId = ko.observable(data.yelpId);
+	this.location = ko.observable(data.location);
+
+};
+
+/*
 Dark Sky
 */
-
 // Variables for Dark Sky
 var darkSkyUrl = "https://api.darksky.net/forecast/";
 var darkSkyKey = "19d44a25d3797ee6bb826a9c306e6d4c";
@@ -392,35 +401,10 @@ var weatherModel = function(data) {
     this.icon = ko.observable();
     this.description = ko.observable();
 
-    // console.log(weatherForecast);
-    // console.log(weatherForecast.icon);
     this.date = ko.observable(new Date(weatherForecast.time*1000).toISOString().substring(5, 10));
-    // var icon = ko.observable('<i class="wi wi-forecast-io-' + weatherForecast.icon + '"></i>');
-    var iconString = "wi wi-forecast-io-" + weatherForecast.icon;
-    this.icon = ko.observable(iconString);
+    // var iconString = "wi wi-forecast-io-" + weatherForecast.icon;
+    this.icon = ko.observable("wi wi-forecast-io-" + weatherForecast.icon);
     this.description = ko.observable(weatherForecast.summary);
-
-    console.log(this.icon());
-
-    // for ( var i = 0; i < weatherForecast.length; i++ ) {
-    //     var weatherDescription = weatherForecast.summary;
-    //     var weatherIconUrl = '<i class="wi wi-forecast-io-' + weatherForecast.icon + '"></i>';
-    //     var weatherDate = new Date(weatherForecast.time*1000).toISOString().substring(5, 10); //.substring(0, 10);
-
-    //     var date = ko.observable(weatherDate);
-    //     var icon = ko.observable(weatherIconUrl);
-    //     var desc = ko.observable(weatherDescription);
-
-    //     var weatherValue = {
-    //         date: weatherDate,
-    //         icon: weatherIconUrl,
-    //         desc: weatherDescription
-    //     };
-
-    //     weatherArray.push(weatherValue);
-    // }
-
-    // return weatherArray();
 };
 
 
@@ -430,11 +414,10 @@ var appViewModel = function() {
     var self = this;
 
     var tempWeatherObject;
-    // self.weatherData = ko.observable();
     self.weatherList = ko.observableArray();
-
-    var dailyForecast;
-
+    // self.weatherData = ko.observable();
+    self.dailyForecast = ko.observable();
+    self.hotelList = ko.observableArray();
     /*
     ** Calls the Dark Sky Weather Forecast API and sets the response and the time of
     ** the call to localStorage.
@@ -444,21 +427,20 @@ var appViewModel = function() {
     */
     if (( typeof(localStorage.weatherUpdateTime) === 'undefined') ||
         ( typeof(localStorage.weatherForecastResponse)  === 'undefined' ) ||
-        (Date.now() - localStorage.weatherUpdateTime) > 10800000 ) {
+        (Date.now() - localStorage.weatherUpdateTime) < 10800000 ) {
             console.log('Requesting API...');
             $.ajax({
                 url: weatherApiUrl,
                 dataType: "jsonp",
-
             })
             .done(function(response) {
-                    // console.log('response: ', typeof(response), response);
+            		console.log('Updating forecast data...');
                     tempWeatherObject = JSON.parse(JSON.stringify(response)); // Take response, stringify, parse, then store temporarily
                     localStorage.weatherForecastResponse = JSON.stringify(response); // Save in localStorage for later
                     localStorage.weatherUpdateTime = Date.now();
-                    // self.weatherList = new weatherModel(JSON.stringify(response));
-                    console.log(tempWeatherObject.daily);
-                    dailyForecast = tempWeatherObject.daily;  // Assign list of daily weather forecast
+                    self.dailyForecast = tempWeatherObject.daily;  // Assign list of daily weather forecast
+                    console.log('Update completed...');
+                    getWeatherList(self.dailyForecast);
             })
             .error(function (jqXHR, exception) {
                 console.log(jqXHR.status, exception);
@@ -467,23 +449,31 @@ var appViewModel = function() {
     } else {
             console.log('Forecast data is current...');
             console.log('Last updated: ', new Date(JSON.parse(localStorage.weatherUpdateTime)));
-            // self.weatherList = new weatherModel(localStorage.weatherForecastResponse);
             tempWeatherObject = JSON.parse(localStorage.weatherForecastResponse);
-            // console.log(tempWeatherObject.daily);
-            dailyForecast = tempWeatherObject.daily;
+            self.dailyForecast = tempWeatherObject.daily;
+            getWeatherList(self.dailyForecast);
     }
 
-    // console.log(self.dailyForecast.data.length);
+    function getWeatherList(forecast) {
+    	console.log('Creating weather model...');
+    	forecast.data.forEach(function(data) {
+    		self.weatherList.push( new weatherModel(data) );
+    	});
 
+    }
 
-
-    dailyForecast.data.forEach(function(forecast) {
-      self.weatherList.push( new weatherModel(forecast) );
+    self.currentWeather = ko.computed(function() {
+    	return self.weatherList()[0];
     });
 
-    console.log(self.weatherList()[0].date());
-    console.log(self.weatherList()[0].icon());
-    console.log(self.weatherList()[0].description());
+    ko.onError = function(error) {
+    	console.log('Error: ', error);
+    };
+
+    mammothLodging.forEach(function(hotel) {
+    	self.hotelList.push( new hotelModel(hotel) );
+    });
+
 };
 
 
