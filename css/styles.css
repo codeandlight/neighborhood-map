@@ -20,33 +20,6 @@ header {
 	height: 75px;
 }
 
-.fancyfont {
-	/*font-family: 'Caveat Brush', cursive;*/
-	text-shadow: 0 0 4px blue;
-	font-size: 32px;
-}
-
-
-/*****
-Weather Information
-*****/
-i.wi {
-	font-weight: bold;
-	font-size: 25px;
-}
-#currentForecast {
-	padding-left: 15px;
-}
-
-ul.weatherForecast.dropdown-menu {
-	min-width: 30vw;
-}
-
-#weatherForecastList {
-	padding-left: 10px;
-	padding-right: 5px;
-}
-
 /*****
 Map Box
 *****/
