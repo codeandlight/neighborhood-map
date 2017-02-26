@@ -41,7 +41,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Visit Mammoth Lakes!  <span id="currentForecast"><i data-bind="attr: { 'class' : currentWeather().icon }"></i></span></a>
+      <a class="navbar-brand" href="#">Visit Mammoth Lakes!</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,14 +50,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Weather Forecast <span class="caret"></span></a>
           <ul class="weatherForecast dropdown-menu">
-            <li><a id="darkSkyLink" href="https://darksky.net/poweredby" target="_blank">Powered by Dark Sky</a></li>
-            <!-- ko foreach: weatherList -->
             <li id="weatherForecastList" class="navbar-text weatherForecast">
-                <span id="weatherDate" data-bind="text: date"></span>
-                <span id="weatherIcon"><i data-bind="attr: { 'class' : icon }"></i></span>
-                <span id="weatherDesc" data-bind="text: description"></span>
             </li>
-            <!-- /ko -->
+            <li>etc...</li>
           </ul>
         </li>
       </ul>
