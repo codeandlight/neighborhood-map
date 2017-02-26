@@ -11,15 +11,15 @@ Google Maps Javascript
 
 // List of locations
 var mammothLodging = [
-    { name: "Cinnamon Bear Inn", yelpId: "cinnamon-bear-inn-mammoth-lakes", location: { lat: 37.646934, lng: -118.971888 }},
-    { name: "Quality Inn", yelpId: "quality-inn-near-mammoth-mountain-ski-resort-mammoth-lakes", location: { lat: 37.648242, lng: -118.975139 }},
-    { name: "Innsbruck Lodge", yelpId: "innsbruck-lodge-mammoth-lakes", location: { lat: 37.651181, lng: -118.982188 }},
-    { name: "Best Western Plus High Sierra Hotel", yelpId: "best-western-plus-high-sierra-hotel-mammoth-lakes-3", location: { lat: 37.648938, lng: -118.969333 }},
-    { name: "Rodeway Inn Wildwood Inn", yelpId: "rodeway-inn-wildwood-inn-mammoth-lakes", location: { lat: 37.649133, lng: -118.976446 }},
-    { name: "M Inn Mammoth", yelpId: "the-m-inn-mammoth-mammoth-lakes", location: { lat: 37.647426, lng: -118.976800 }},
-    { name: "Shilo Inn Suites", yelpId: "shilo-inn-suites-hotel-mammoth-lakes-mammoth-lakes", location: { lat: 37.646093, lng: -118.964614 }},
-    { name: "Travelodge", yelpId: "travelodge-mammoth-lakes-mammoth-lakes", location: { lat: 37.649304, lng: -118.974173 }},
-    { name: "Alpenhof Lodge", yelpId: "alpenhof-lodge-mammoth-lakes", location: { lat: 37.650034, lng: -118.983540 }}
+    { name: 'Cinnamon Bear Inn', yelpId: 'cinnamon-bear-inn-mammoth-lakes', location: { lat: 37.646934, lng: -118.971888 }},
+    { name: 'Quality Inn', yelpId: 'quality-inn-near-mammoth-mountain-ski-resort-mammoth-lakes', location: { lat: 37.648242, lng: -118.975139 }},
+    { name: 'Innsbruck Lodge', yelpId: 'innsbruck-lodge-mammoth-lakes', location: { lat: 37.651181, lng: -118.982188 }},
+    { name: 'Best Western Plus High Sierra Hotel', yelpId: 'best-western-plus-high-sierra-hotel-mammoth-lakes-3', location: { lat: 37.648938, lng: -118.969333 }},
+    { name: 'Rodeway Inn Wildwood Inn', yelpId: 'rodeway-inn-wildwood-inn-mammoth-lakes', location: { lat: 37.649133, lng: -118.976446 }},
+    { name: 'M Inn Mammoth', yelpId: 'the-m-inn-mammoth-mammoth-lakes', location: { lat: 37.647426, lng: -118.976800 }},
+    { name: 'Shilo Inn Suites', yelpId: 'shilo-inn-suites-hotel-mammoth-lakes-mammoth-lakes', location: { lat: 37.646093, lng: -118.964614 }},
+    { name: 'Travelodge', yelpId: 'travelodge-mammoth-lakes-mammoth-lakes', location: { lat: 37.649304, lng: -118.974173 }},
+    { name: 'Alpenhof Lodge', yelpId: 'alpenhof-lodge-mammoth-lakes', location: { lat: 37.650034, lng: -118.983540 }}
 ];
 
 // Initialize map variable
@@ -32,19 +32,20 @@ var markers = [];
 var bounds;
 
 
+
 var markerModel = function(hotel) {
 
     // Custom marker look
     var defaultMarker = makeMarkerIcon('76F5F3', '360CF3');
     var highlightedMarker = makeMarkerIcon('360CF3', '76F5F3');
 
-    var name = hotel.name;
-    var yelpId = hotel.yelpId;
-    var location = hotel.location;
+    this.name = ko.observable(hotel.name);
+    this.yelpId = ko.observable(hotel.yelpId);
+    this.location = ko.observable(hotel.location);
 
-    var marker = ko.observable(new google.maps.Marker({
-        position: location,
-        title: name,
+    this.marker = ko.observable(new google.maps.Marker({
+        position: this.location(),
+        title: this.name(),
         map: map,
         icon: defaultMarker,
         animation: google.maps.Animation.DROP
@@ -52,17 +53,19 @@ var markerModel = function(hotel) {
 
 
     // Add marker location to bounds to resize map and fit all markers
-    bounds.extend(location);
+    bounds.extend(this.location());
 
     // Add listeners to marker
-    marker().addListener('mouseover', function() {
+    this.marker().addListener('mouseover', function() {
+        this.setAnimation(google.maps.Animation.BOUNCE);
         this.setIcon(highlightedMarker);
     });
-    marker().addListener('mouseout', function() {
+    this.marker().addListener('mouseout', function() {
+        this.setAnimation(-1);
         this.setIcon(defaultMarker);
     });
 
-    marker().addListener('click', function() {
+    this.marker().addListener('click', function() {
         console.log('clicked');
     });
 
@@ -74,19 +77,34 @@ var markerModel = function(hotel) {
         return markerImage;
     }
 
+    this.previewOn = function() {
+        this.marker().setIcon(highlightedMarker);
+        this.marker().setAnimation(google.maps.Animation.BOUNCE);
+    };
+
+    this.previewOut = function() {
+        this.marker().setIcon(defaultMarker);
+        this.marker().setAnimation(-1);
+    };
+
+    this.select = function() {
+        console.log('clicked...');
+    };
 
 };
 
 var appViewModel = function() {
     that = this;
-    that.markers = ko.observableArray([]);
+    that.mapMarkers = ko.observableArray([]);
 
     // Add each hotel to markers array
     mammothLodging.forEach(function(hotel) {
-        that.markers.push(new markerModel(hotel));
+        that.mapMarkers.push(new markerModel(hotel));
     });
 
-    console.log(that.markers()[0].name);
+    that.clickFunc = function() {
+        console.log('clicked...', this.yelpId());
+    };
 
     // Resize map to fit all markers
     map.fitBounds(bounds);
@@ -103,6 +121,9 @@ function initMap() {
         zoom: 20,
         styles: styles
     });
+
+    // INitialize infowindow to display information
+    var infowindow = new google.maps.InfoWindow();
 
     bounds = new google.maps.LatLngBounds();
 
