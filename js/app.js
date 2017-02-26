@@ -28,48 +28,84 @@ var map;
 // Initialize markers array
 var markers = [];
 
-var hotelModel = function(hotel) {
-    var name = ko.observable(hotel.name);
-    var yelpId = ko.observable(hotel.yelpId);
-    var location = ko.observable(hotel.location);
+// Create bounds object to adjust the boundaries of the map
+var bounds;
 
-    var marker = new google.maps.Marker({
-        position: location(),
-        title: name(),
+
+var markerModel = function(hotel) {
+
+    // Custom marker look
+    var defaultMarker = makeMarkerIcon('76F5F3', '360CF3');
+    var highlightedMarker = makeMarkerIcon('360CF3', '76F5F3');
+
+    var name = hotel.name;
+    var yelpId = hotel.yelpId;
+    var location = hotel.location;
+
+    var marker = ko.observable(new google.maps.Marker({
+        position: location,
+        title: name,
         map: map,
+        icon: defaultMarker,
         animation: google.maps.Animation.DROP
+    }));
+
+
+    // Add marker location to bounds to resize map and fit all markers
+    bounds.extend(location);
+
+    // Add listeners to marker
+    marker().addListener('mouseover', function() {
+        this.setIcon(highlightedMarker);
     });
+    marker().addListener('mouseout', function() {
+        this.setIcon(defaultMarker);
+    });
+
+    marker().addListener('click', function() {
+        console.log('clicked');
+    });
+
+    // Changes the look of the marker icon
+    function makeMarkerIcon(markerColor, markerCenter) {
+        var markerImage = new google.maps.MarkerImage(
+            'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|' + markerColor + '|' + markerCenter
+        );
+        return markerImage;
+    }
+
+
 };
 
 var appViewModel = function() {
-    self = this;
-    self.markers = ko.observableArray([]);
+    that = this;
+    that.markers = ko.observableArray([]);
 
     // Add each hotel to markers array
     mammothLodging.forEach(function(hotel) {
-        self.markers.push(new hotelModel(hotel));
-        // console.log(self.markers().marker().position);
+        that.markers.push(new markerModel(hotel));
     });
 
-    // self.bounds = ko.computed(function() {
-    //  self.markers.forEach(function() {
-    //      self.bounds.push( new google.maps.LatLngBounds();
+    console.log(that.markers()[0].name);
 
-    // map.fitBounds(bounds);
-
+    // Resize map to fit all markers
+    map.fitBounds(bounds);
 };
 
 function initMap() {
 
+    // Custom map styling created using https://mapstyle.withgoogle.com/ | minified
     var styles = [{"elementType":"geometry","stylers":[{"color":"#ffffff"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#f5f5f5"}]},{"featureType":"administrative.neighborhood","stylers":[{"visibility":"off"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"landscape","stylers":[{"color":"#eef0f0"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#cccccc"},{"visibility":"simplified"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.business","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"geometry","stylers":[{"color":"#b9fa99"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#cbfac7"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"road","elementType":"geometry","stylers":[{"color":"#66ccff"}]},{"featureType":"road.arterial","stylers":[{"color":"#66ccff"}]},{"featureType":"road.arterial","elementType":"labels.text.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#66ccff"}]},{"featureType":"road.highway","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"road.local","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#000000"},{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"color":"#e5e5e5"}]},{"featureType":"transit.station","elementType":"geometry","stylers":[{"color":"#eeeeee"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#cdfdff"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]}];
 
     // Initialize and create map
-    console.log(mammothLodging[0]);
     map = new google.maps.Map(document.getElementById('map'), {
         center: mammothLodging[0].location,
-        zoom: 13,
+        zoom: 20,
         styles: styles
     });
 
+    bounds = new google.maps.LatLngBounds();
+
+    // Apply ViewModel
     ko.applyBindings( new appViewModel() );
 }

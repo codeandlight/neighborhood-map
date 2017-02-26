@@ -64,7 +64,7 @@
         <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View Hotels <span class="caret"></span></a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" data-bind="foreach: markers()">
             <li data-bind="text: name"></li>
           </ul>
         </li>
@@ -79,13 +79,13 @@
 </main>
 
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvHupBq7B1rMQBK01PjInJ-WbzfJIwz9A&callback=initMap"></script>
     <script src="js/libs/jquery.js"></script>
     <script src="js/libs/bootstrap.min.js"></script>
     <script src="js/libs/knockout-3.4.1.js"></script>
     <script src="js/libs/yelpapi.min.js"></script>
     <!-- Google Maps API -->
     <script src="js/app.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvHupBq7B1rMQBK01PjInJ-WbzfJIwz9A&callback=initMap"></script>
 
 </body>
 
