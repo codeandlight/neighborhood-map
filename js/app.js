@@ -31,6 +31,11 @@ var markers = [];
 // Create bounds object to adjust the boundaries of the map
 var bounds;
 
+var infowindow, infoWindowOptions;
+
+var infowindowModel = function(data) {
+    console.log('infowindow');
+};
 
 
 var markerModel = function(hotel) {
@@ -51,17 +56,16 @@ var markerModel = function(hotel) {
         animation: google.maps.Animation.DROP
     }));
 
-
     // Add marker location to bounds to resize map and fit all markers
     bounds.extend(this.location());
 
     // Add listeners to marker
     this.marker().addListener('mouseover', function() {
-        this.setAnimation(google.maps.Animation.BOUNCE);
+        // this.setAnimation(google.maps.Animation.BOUNCE);
         this.setIcon(highlightedMarker);
     });
     this.marker().addListener('mouseout', function() {
-        this.setAnimation(-1);
+        // this.setAnimation(-1);
         this.setIcon(defaultMarker);
     });
 
@@ -69,13 +73,6 @@ var markerModel = function(hotel) {
         console.log('clicked');
     });
 
-    // Changes the look of the marker icon
-    function makeMarkerIcon(markerColor, markerCenter) {
-        var markerImage = new google.maps.MarkerImage(
-            'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|' + markerColor + '|' + markerCenter
-        );
-        return markerImage;
-    }
 
     this.previewOn = function() {
         this.marker().setIcon(highlightedMarker);
@@ -87,10 +84,21 @@ var markerModel = function(hotel) {
         this.marker().setAnimation(-1);
     };
 
-    this.select = function() {
+    this.selectMarker = function() {
+        map.panTo(this.location());
+        map.setZoom(16);
+        this.marker().setIcon(highlightedMarker);
+        this.marker().setAnimation(google.maps.Animation.BOUNCE);
         console.log('clicked...');
     };
 
+    // Changes the look of the marker icon
+    function makeMarkerIcon(markerColor, markerCenter) {
+        var markerImage = new google.maps.MarkerImage(
+            'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|' + markerColor + '|' + markerCenter
+        );
+        return markerImage;
+    }
 };
 
 var appViewModel = function() {
@@ -122,10 +130,12 @@ function initMap() {
         styles: styles
     });
 
-    // INitialize infowindow to display information
-    var infowindow = new google.maps.InfoWindow();
+    // Initialize infowindow to display information
+    infowindow = new google.maps.InfoWindow();
 
     bounds = new google.maps.LatLngBounds();
+
+    service = new google.maps.places.PlacesService(map);
 
     // Apply ViewModel
     ko.applyBindings( new appViewModel() );
