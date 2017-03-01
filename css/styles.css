@@ -44,12 +44,14 @@ Information Window
 	color: black;
 	background: #66FFFF;
 	background: rgba(102, 255, 255, 0.7);
-	z-index: 100;
+	z-index: 500;
 	height: 90%;
+	min-width: 300px;
 	width: 45%;
 	display: none;
 	padding-left: 5px;
 	padding-right: 5px;
+	overflow: scroll;
 }
 
 #infoWindowClose {
@@ -58,6 +60,13 @@ Information Window
 	right: 10px;
 	border: 1px solid black;
 	padding: 3px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 811px) {
+
+	#informationWindow {
+		margin-top: 100px;
+	}
 }
 
 /*#informationWindow.hidden {
@@ -104,7 +113,7 @@ DisplayInfo Window
 }
 
 #yelpImg {
-	height: 100px;
+	height: 125px;
 	float: left;
 	margin-bottom: 5px;
 }

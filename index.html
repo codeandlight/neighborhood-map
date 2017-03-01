@@ -81,9 +81,8 @@
             <a href="#"  data-bind="click: closeInfoWindow" title="Close"><span class="glyphicon glyphicon-remove"></span></a>
         </div>
         <hr>
-        <ul>
-            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero neque eum rem illo ratione consequuntur, in animi corporis sapiente omnis qui, atque ullam aut optio aliquam blanditiis dolor dolorem ab.</li>
-            <li data-bind="text: viewInfo"></li>
+        <ul data-bind="foreach: searchResults">
+            <li data-bind="text: name"></li>
         </ul>
     </div>
 </main>
