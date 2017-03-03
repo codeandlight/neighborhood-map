@@ -12,22 +12,22 @@ Google Maps Javascript
 
 // List of Mammoth Lodging Locations
 var placesInMammoth = [
-    { name: 'Cinnamon Bear Inn', phone: '7609342873', locationType: 'Lodging', location: { lat: 37.646934, lng: -118.971888 }},
-    { name: 'Quality Inn', phone: '7609345114', locationType: 'Lodging', location: { lat: 37.648242, lng: -118.975139 }},
-    { name: 'Innsbruck Lodge', phone: '7609343035', locationType: 'Lodging', location: { lat: 37.651181, lng: -118.982188 }},
-    { name: 'Rodeway Inn Wildwood Inn', phone: '7609346855', locationType: 'Lodging', location: { lat: 37.649133, lng: -118.976446 }},
-    { name: 'M Inn Mammoth', phone: '7609342710', locationType: 'Lodging', location: { lat: 37.647426, lng: -118.976800 }},
-    { name: 'Shilo Inn Suites', phone: '7609650544', locationType: 'Lodging', location: { lat: 37.646093, lng: -118.964614 }},
-    { name: 'Travelodge', phone: '8007606483', locationType: 'Lodging', location: { lat: 37.649304, lng: -118.974173 }},
-    { name: 'Alpenhof Lodge', phone: '7609346330', locationType: 'Lodging', location: { lat: 37.650034, lng: -118.983540 }},
-    { name: "Giovanni's Pizzeria", phone: '7609347563', locationType: 'Restaurant', location: { lat: 37.639957, lng: -118.964398 }},
-    { name: "Roberto's Mexican Cafe", phone: '7609343667', locationType: 'Restaurant', location: { lat: 37.642279, lng: -118.965988 }},
-    { name: 'Starbucks', phone: '7609344536', locationType: 'Restaurant', location: { lat: 37.642279, lng: -118.965988 }},
-    { name: 'Mammoth Brewing Company', phone: '7609347141', locationType: 'Restaurant', location: { lat: 37.648632, lng: -118.983435 }},
-    { name: 'Minaret Village Shopping Center', phone: '7609346005', locationType: 'Shopping', location: { lat: 37.639138, lng: -118.964294 }},
-    { name: 'Vons / Starbucks', phone: '7609344536', locationType: 'Shopping', location: { lat: 37.638545, lng: -118.965243 }},
-    { name: 'Mammoth Fun Shop', phone: '7609241111', locationType: 'Shopping', location: { lat: 37.646967, lng: -118.968285 }},
-    { name: "McCoy's Mammoth Memories", phone: '7609247070', locationType: 'Shopping', location: { lat: 37.650671, lng: -118.985323 }},
+    { name: 'Cinnamon Bear Inn', phone: '7609342873', listView: true, locationType: 'Lodging', location: { lat: 37.646934, lng: -118.971888 }},
+    { name: 'Quality Inn', phone: '7609345114', listView: true, locationType: 'Lodging', location: { lat: 37.648242, lng: -118.975139 }},
+    { name: 'Innsbruck Lodge', phone: '7609343035', listView: true, locationType: 'Lodging', location: { lat: 37.651181, lng: -118.982188 }},
+    { name: 'Rodeway Inn Wildwood Inn', phone: '7609346855', listView: true, locationType: 'Lodging', location: { lat: 37.649133, lng: -118.976446 }},
+    { name: 'M Inn Mammoth', phone: '7609342710', listView: true, locationType: 'Lodging', location: { lat: 37.647426, lng: -118.976800 }},
+    { name: 'Shilo Inn Suites', phone: '7609650544', listView: true, locationType: 'Lodging', location: { lat: 37.646093, lng: -118.964614 }},
+    { name: 'Travelodge', phone: '8007606483', listView: true, locationType: 'Lodging', location: { lat: 37.649304, lng: -118.974173 }},
+    { name: 'Alpenhof Lodge', phone: '7609346330', listView: true, locationType: 'Lodging', location: { lat: 37.650034, lng: -118.983540 }},
+    { name: "Giovanni's Pizzeria", phone: '7609347563', listView: true, locationType: 'Restaurant', location: { lat: 37.639957, lng: -118.964398 }},
+    { name: "Roberto's Mexican Cafe", phone: '7609343667', listView: true, locationType: 'Restaurant', location: { lat: 37.642279, lng: -118.965988 }},
+    { name: 'Starbucks', phone: '7609344536', listView: true, locationType: 'Restaurant', location: { lat: 37.642279, lng: -118.965988 }},
+    { name: 'Mammoth Brewing Company', phone: '7609347141', listView: true, locationType: 'Restaurant', location: { lat: 37.648632, lng: -118.983435 }},
+    { name: 'Minaret Village Shopping Center', phone: '7609346005', listView: true, locationType: 'Shopping', location: { lat: 37.639138, lng: -118.964294 }},
+    { name: 'Vons / Starbucks', phone: '7609344536', listView: true, locationType: 'Shopping', location: { lat: 37.638545, lng: -118.965243 }},
+    { name: 'Mammoth Fun Shop', phone: '7609241111', listView: true, locationType: 'Shopping', location: { lat: 37.646967, lng: -118.968285 }},
+    { name: "McCoy's Mammoth Memories", phone: '7609247070', listView: true, locationType: 'Shopping', location: { lat: 37.650671, lng: -118.985323 }},
 ];
 
 // Initialize map variable
@@ -69,6 +69,7 @@ var markerModel = function(item) {
     self.name = ko.observable(item.name);
     self.phone = ko.observable(item.phone);
     self.locationType = ko.observable(item.locationType);
+    self.listView = ko.observable(item.listView);
     // self.yelpId = ko.observable(item.yelpId);
     self.location = ko.observable(item.location);
 
@@ -198,11 +199,18 @@ var appViewModel = function() {
     that.filterMarkers = ko.computed(function() {
         for (var i = 0; i < that.mapMarkers().length; i++) {
             if (that.selectedLocationType() == 'All') {
+            // console.log(that.mapMarkers()[i].listView());
                 that.mapMarkers()[i].marker().setMap(map);
+                that.mapMarkers()[i].marker().setAnimation(google.maps.Animation.DROP);
+                that.mapMarkers()[i].listView(true);
             } else {
-                that.mapMarkers()[i].marker().setMap(map);
-                if (that.selectedLocationType() !== that.mapMarkers()[i].locationType()) {
                 that.mapMarkers()[i].marker().setMap(null);
+                that.mapMarkers()[i].listView(false);
+                if (that.selectedLocationType() == that.mapMarkers()[i].locationType()) {
+                    that.mapMarkers()[i].marker().setMap(map);
+                    that.mapMarkers()[i].marker().setAnimation(google.maps.Animation.DROP);
+                    that.mapMarkers()[i].listView(true);
+                    // console.log(that.mapMarkers()[i].listView());
                 }
             }
         }
