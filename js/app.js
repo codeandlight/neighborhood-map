@@ -12,15 +12,22 @@ Google Maps Javascript
 
 // List of Mammoth Lodging Locations
 var mammothLodging = [
-    { name: 'Cinnamon Bear Inn', phone: '17609342873', yelpId: 'cinnamon-bear-inn-mammoth-lakes', location: { lat: 37.646934, lng: -118.971888 }},
-    { name: 'Quality Inn', phone: '17609345114', yelpId: 'quality-inn-near-mammoth-mountain-ski-resort-mammoth-lakes', location: { lat: 37.648242, lng: -118.975139 }},
-    { name: 'Innsbruck Lodge', phone: '17609343035', yelpId: 'innsbruck-lodge-mammoth-lakes', location: { lat: 37.651181, lng: -118.982188 }},
-    { name: 'Best Western Plus High Sierra Hotel', phone: '17609241234',yelpId: 'best-western-plus-high-sierra-hotel-mammoth-lakes-3', location: { lat: 37.648938, lng: -118.969333 }},
-    { name: 'Rodeway Inn Wildwood Inn', phone: '17609346855',yelpId: 'rodeway-inn-wildwood-inn-mammoth-lakes', location: { lat: 37.649133, lng: -118.976446 }},
-    { name: 'M Inn Mammoth', phone: '17609342710', yelpId: 'the-m-inn-mammoth-mammoth-lakes', location: { lat: 37.647426, lng: -118.976800 }},
-    { name: 'Shilo Inn Suites', phone: '17609650544', yelpId: 'shilo-inn-suites-hotel-mammoth-lakes-mammoth-lakes', location: { lat: 37.646093, lng: -118.964614 }},
-    { name: 'Travelodge', phone: '18007606483', yelpId: 'travelodge-mammoth-lakes-mammoth-lakes', location: { lat: 37.649304, lng: -118.974173 }},
-    { name: 'Alpenhof Lodge', phone: '17609346330', yelpId: 'alpenhof-lodge-mammoth-lakes', location: { lat: 37.650034, lng: -118.983540 }}
+    { name: 'Cinnamon Bear Inn', phone: '7609342873', type: 'hotel', location: { lat: 37.646934, lng: -118.971888 }},
+    { name: 'Quality Inn', phone: '7609345114', type: 'hotel', location: { lat: 37.648242, lng: -118.975139 }},
+    { name: 'Innsbruck Lodge', phone: '7609343035', type: 'hotel', location: { lat: 37.651181, lng: -118.982188 }},
+    { name: 'Rodeway Inn Wildwood Inn', phone: '7609346855', type: 'hotel', location: { lat: 37.649133, lng: -118.976446 }},
+    { name: 'M Inn Mammoth', phone: '7609342710', type: 'hotel', location: { lat: 37.647426, lng: -118.976800 }},
+    { name: 'Shilo Inn Suites', phone: '7609650544', type: 'hotel', location: { lat: 37.646093, lng: -118.964614 }},
+    { name: 'Travelodge', phone: '8007606483', type: 'hotel', location: { lat: 37.649304, lng: -118.974173 }},
+    { name: 'Alpenhof Lodge', phone: '7609346330', type: 'hotel', location: { lat: 37.650034, lng: -118.983540 }},
+    { name: "Giovanni's Pizzeria", phone: '7609347563', type: 'restaurant', location: { lat: 37.639957, lng: -118.964398 }},
+    { name: "Roberto's Mexican Cafe", phone: '7609343667', type: 'restaurant', location: { lat: 37.642279, lng: -118.965988 }},
+    { name: 'Starbucks', phone: '7609344536', type: 'restaurant', location: { lat: 37.642279, lng: -118.965988 }},
+    { name: 'Mammoth Brewing Company', phone: '7609347141', type: 'restaurant', location: { lat: 37.648632, lng: -118.983435 }},
+    { name: 'Minaret Village Shopping Center', phone: '7609346005', type: 'shopping', location: { lat: 37.639138, lng: -118.964294 }},
+    { name: 'Vons / Starbucks', phone: '7609344536', type: 'shopping', location: { lat: 37.638545, lng: -118.965243 }},
+    { name: 'Mammoth Fun Shop', phone: '7609241111', type: 'shopping', location: { lat: 37.646967, lng: -118.968285 }},
+    { name: "McCoy's Mammoth Memories", phone: '7609247070', type: 'shopping', location: { lat: 37.650671, lng: -118.985323 }},
 ];
 
 // Initialize map variable
@@ -126,7 +133,7 @@ var markerModel = function(item) {
             map.panTo(self.location());
             var message = {
                 // 'action': 'https://api.yelp.com/v2/business/' + self.yelpId(),
-                'action': 'https://api.yelp.com/v2/phone_search?phone=+' + self.phone(),
+                'action': 'https://api.yelp.com/v2/phone_search?phone=+1' + self.phone(),
                 'method': 'GET',
                 'parameters': parameters
             };
