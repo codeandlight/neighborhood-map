@@ -33,6 +33,7 @@
   <div id="menu-toggle"><div id="menu-toggle-button" data-bind="click: toggleMenuWindow">Menu <span class="glyphicon glyphicon-chevron-up"></span></div></div>
   <div id="menu-window">
     <h3>Mammoth Lakes</h3>
+    <p>Filter Locations: <select data-bind="options: locationType, value: selectedLocationType"></select></p>
     <ul data-bind="foreach: mapMarkers">
       <li><a class="menu-link" href="#" data-bind="text: name, click: selectMarker, event: { mouseover: previewOn, mouseout: previewOut }"></a></li>
     </ul>

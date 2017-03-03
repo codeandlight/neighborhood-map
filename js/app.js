@@ -11,23 +11,23 @@ Google Maps Javascript
 */
 
 // List of Mammoth Lodging Locations
-var mammothLodging = [
-    { name: 'Cinnamon Bear Inn', phone: '7609342873', type: 'hotel', location: { lat: 37.646934, lng: -118.971888 }},
-    { name: 'Quality Inn', phone: '7609345114', type: 'hotel', location: { lat: 37.648242, lng: -118.975139 }},
-    { name: 'Innsbruck Lodge', phone: '7609343035', type: 'hotel', location: { lat: 37.651181, lng: -118.982188 }},
-    { name: 'Rodeway Inn Wildwood Inn', phone: '7609346855', type: 'hotel', location: { lat: 37.649133, lng: -118.976446 }},
-    { name: 'M Inn Mammoth', phone: '7609342710', type: 'hotel', location: { lat: 37.647426, lng: -118.976800 }},
-    { name: 'Shilo Inn Suites', phone: '7609650544', type: 'hotel', location: { lat: 37.646093, lng: -118.964614 }},
-    { name: 'Travelodge', phone: '8007606483', type: 'hotel', location: { lat: 37.649304, lng: -118.974173 }},
-    { name: 'Alpenhof Lodge', phone: '7609346330', type: 'hotel', location: { lat: 37.650034, lng: -118.983540 }},
-    { name: "Giovanni's Pizzeria", phone: '7609347563', type: 'restaurant', location: { lat: 37.639957, lng: -118.964398 }},
-    { name: "Roberto's Mexican Cafe", phone: '7609343667', type: 'restaurant', location: { lat: 37.642279, lng: -118.965988 }},
-    { name: 'Starbucks', phone: '7609344536', type: 'restaurant', location: { lat: 37.642279, lng: -118.965988 }},
-    { name: 'Mammoth Brewing Company', phone: '7609347141', type: 'restaurant', location: { lat: 37.648632, lng: -118.983435 }},
-    { name: 'Minaret Village Shopping Center', phone: '7609346005', type: 'shopping', location: { lat: 37.639138, lng: -118.964294 }},
-    { name: 'Vons / Starbucks', phone: '7609344536', type: 'shopping', location: { lat: 37.638545, lng: -118.965243 }},
-    { name: 'Mammoth Fun Shop', phone: '7609241111', type: 'shopping', location: { lat: 37.646967, lng: -118.968285 }},
-    { name: "McCoy's Mammoth Memories", phone: '7609247070', type: 'shopping', location: { lat: 37.650671, lng: -118.985323 }},
+var placesInMammoth = [
+    { name: 'Cinnamon Bear Inn', phone: '7609342873', locationType: 'Lodging', location: { lat: 37.646934, lng: -118.971888 }},
+    { name: 'Quality Inn', phone: '7609345114', locationType: 'Lodging', location: { lat: 37.648242, lng: -118.975139 }},
+    { name: 'Innsbruck Lodge', phone: '7609343035', locationType: 'Lodging', location: { lat: 37.651181, lng: -118.982188 }},
+    { name: 'Rodeway Inn Wildwood Inn', phone: '7609346855', locationType: 'Lodging', location: { lat: 37.649133, lng: -118.976446 }},
+    { name: 'M Inn Mammoth', phone: '7609342710', locationType: 'Lodging', location: { lat: 37.647426, lng: -118.976800 }},
+    { name: 'Shilo Inn Suites', phone: '7609650544', locationType: 'Lodging', location: { lat: 37.646093, lng: -118.964614 }},
+    { name: 'Travelodge', phone: '8007606483', locationType: 'Lodging', location: { lat: 37.649304, lng: -118.974173 }},
+    { name: 'Alpenhof Lodge', phone: '7609346330', locationType: 'Lodging', location: { lat: 37.650034, lng: -118.983540 }},
+    { name: "Giovanni's Pizzeria", phone: '7609347563', locationType: 'Restaurant', location: { lat: 37.639957, lng: -118.964398 }},
+    { name: "Roberto's Mexican Cafe", phone: '7609343667', locationType: 'Restaurant', location: { lat: 37.642279, lng: -118.965988 }},
+    { name: 'Starbucks', phone: '7609344536', locationType: 'Restaurant', location: { lat: 37.642279, lng: -118.965988 }},
+    { name: 'Mammoth Brewing Company', phone: '7609347141', locationType: 'Restaurant', location: { lat: 37.648632, lng: -118.983435 }},
+    { name: 'Minaret Village Shopping Center', phone: '7609346005', locationType: 'Shopping', location: { lat: 37.639138, lng: -118.964294 }},
+    { name: 'Vons / Starbucks', phone: '7609344536', locationType: 'Shopping', location: { lat: 37.638545, lng: -118.965243 }},
+    { name: 'Mammoth Fun Shop', phone: '7609241111', locationType: 'Shopping', location: { lat: 37.646967, lng: -118.968285 }},
+    { name: "McCoy's Mammoth Memories", phone: '7609247070', locationType: 'Shopping', location: { lat: 37.650671, lng: -118.985323 }},
 ];
 
 // Initialize map variable
@@ -68,7 +68,8 @@ var markerModel = function(item) {
 
     self.name = ko.observable(item.name);
     self.phone = ko.observable(item.phone);
-    self.yelpId = ko.observable(item.yelpId);
+    self.locationType = ko.observable(item.locationType);
+    // self.yelpId = ko.observable(item.yelpId);
     self.location = ko.observable(item.location);
 
     self.marker = ko.observable(new google.maps.Marker({
@@ -170,14 +171,14 @@ var markerModel = function(item) {
             // console.log(this.marker());
             infowindow.open( map, self.marker() );
             mapCenter = self.marker().position;
-            that.hideOtherMarkers(self);
+            // that.hideOtherMarkers(self);
         }
 
         infowindow.addListener('closeclick', function() {
             map.panTo(mapCenter);
             map.fitBounds(bounds);
             infowindow.marker = null;
-            that.showAllMarkers();
+            // that.showAllMarkers();
         });
     }
 };
@@ -191,9 +192,25 @@ var appViewModel = function() {
     that.searchResults = ko.observableArray([]);
     that.viewInfo = ko.observable();
 
+    that.locationType = ko.observableArray(['All', 'Lodging', 'Restaurant', 'Shopping']);
+    that.selectedLocationType = ko.observable(that.locationType);
+
+    that.filterMarkers = ko.computed(function() {
+        for (var i = 0; i < that.mapMarkers().length; i++) {
+            if (that.selectedLocationType() == 'All') {
+                that.mapMarkers()[i].marker().setMap(map);
+            } else {
+                that.mapMarkers()[i].marker().setMap(map);
+                if (that.selectedLocationType() !== that.mapMarkers()[i].locationType()) {
+                that.mapMarkers()[i].marker().setMap(null);
+                }
+            }
+        }
+    });
+
     // Add each hotel to markers array
-    mammothLodging.forEach(function(hotel) {
-        that.mapMarkers.push(new markerModel(hotel));
+    placesInMammoth.forEach(function(location) {
+        that.mapMarkers.push(new markerModel(location));
     });
 
     that.toggleMenuWindow = function() {
@@ -214,7 +231,7 @@ function initMap() {
 
     // Initialize and create map
     map = new google.maps.Map(document.getElementById('map'), {
-        center: mammothLodging[0].location,
+        center: placesInMammoth[0].location,
         zoom: 20,
         mapTypeControl: false,
         styles: styles
