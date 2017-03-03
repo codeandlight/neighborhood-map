@@ -12,15 +12,15 @@ Google Maps Javascript
 
 // List of Mammoth Lodging Locations
 var mammothLodging = [
-    { name: 'Cinnamon Bear Inn', phone: '17609342873', yelpId: 'cinnamon-bear-inn-mammoth-lakes', location: { lat: 37.646934, lng: -118.971888 }},
-    { name: 'Quality Inn', phone: '17609345114', yelpId: 'quality-inn-near-mammoth-mountain-ski-resort-mammoth-lakes', location: { lat: 37.648242, lng: -118.975139 }},
-    { name: 'Innsbruck Lodge', phone: '17609343035', yelpId: 'innsbruck-lodge-mammoth-lakes', location: { lat: 37.651181, lng: -118.982188 }},
-    { name: 'Best Western Plus High Sierra Hotel', phone: '17609241234',yelpId: 'best-western-plus-high-sierra-hotel-mammoth-lakes-3', location: { lat: 37.648938, lng: -118.969333 }},
-    { name: 'Rodeway Inn Wildwood Inn', phone: '17609346855',yelpId: 'rodeway-inn-wildwood-inn-mammoth-lakes', location: { lat: 37.649133, lng: -118.976446 }},
-    { name: 'M Inn Mammoth', phone: '17609342710', yelpId: 'the-m-inn-mammoth-mammoth-lakes', location: { lat: 37.647426, lng: -118.976800 }},
-    { name: 'Shilo Inn Suites', phone: '17609650544', yelpId: 'shilo-inn-suites-hotel-mammoth-lakes-mammoth-lakes', location: { lat: 37.646093, lng: -118.964614 }},
-    { name: 'Travelodge', phone: '18007606483', yelpId: 'travelodge-mammoth-lakes-mammoth-lakes', location: { lat: 37.649304, lng: -118.974173 }},
-    { name: 'Alpenhof Lodge', phone: '17609346330', yelpId: 'alpenhof-lodge-mammoth-lakes', location: { lat: 37.650034, lng: -118.983540 }}
+    { name: 'Cinnamon Bear Inn', yelpId: 'cinnamon-bear-inn-mammoth-lakes', location: { lat: 37.646934, lng: -118.971888 }},
+    { name: 'Quality Inn', yelpId: 'quality-inn-near-mammoth-mountain-ski-resort-mammoth-lakes', location: { lat: 37.648242, lng: -118.975139 }},
+    { name: 'Innsbruck Lodge', yelpId: 'innsbruck-lodge-mammoth-lakes', location: { lat: 37.651181, lng: -118.982188 }},
+    { name: 'Best Western Plus High Sierra Hotel', yelpId: 'best-western-plus-high-sierra-hotel-mammoth-lakes-3', location: { lat: 37.648938, lng: -118.969333 }},
+    { name: 'Rodeway Inn Wildwood Inn', yelpId: 'rodeway-inn-wildwood-inn-mammoth-lakes', location: { lat: 37.649133, lng: -118.976446 }},
+    { name: 'M Inn Mammoth', yelpId: 'the-m-inn-mammoth-mammoth-lakes', location: { lat: 37.647426, lng: -118.976800 }},
+    { name: 'Shilo Inn Suites', yelpId: 'shilo-inn-suites-hotel-mammoth-lakes-mammoth-lakes', location: { lat: 37.646093, lng: -118.964614 }},
+    { name: 'Travelodge', yelpId: 'travelodge-mammoth-lakes-mammoth-lakes', location: { lat: 37.649304, lng: -118.974173 }},
+    { name: 'Alpenhof Lodge', yelpId: 'alpenhof-lodge-mammoth-lakes', location: { lat: 37.650034, lng: -118.983540 }}
 ];
 
 // Initialize map variable
@@ -51,7 +51,7 @@ var searchResultModel = function(result) {
 /*
 ** This is the model for the markers that are placed on the Google Map and in the dropdown menu.
 */
-var markerModel = function(item) {
+var markerModel = function(hotel) {
 
     var self = this;
 
@@ -59,10 +59,9 @@ var markerModel = function(item) {
     var defaultMarker = makeMarkerIcon('76F5F3', '360CF3');
     var highlightedMarker = makeMarkerIcon('360CF3', '76F5F3');
 
-    self.name = ko.observable(item.name);
-    self.phone = ko.observable(item.phone);
-    self.yelpId = ko.observable(item.yelpId);
-    self.location = ko.observable(item.location);
+    self.name = ko.observable(hotel.name);
+    self.yelpId = ko.observable(hotel.yelpId);
+    self.location = ko.observable(hotel.location);
 
     self.marker = ko.observable(new google.maps.Marker({
         position: this.location(),
@@ -125,8 +124,7 @@ var markerModel = function(item) {
             infowindow.setContent('retrieving information...');
             map.panTo(self.location());
             var message = {
-                // 'action': 'https://api.yelp.com/v2/business/' + self.yelpId(),
-                'action': 'https://api.yelp.com/v2/phone_search?phone=+' + self.phone(),
+                'action': 'https://api.yelp.com/v2/business/' + self.yelpId(),
                 'method': 'GET',
                 'parameters': parameters
             };
@@ -145,9 +143,8 @@ var markerModel = function(item) {
                 console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
             })
                 .done( function(data, textStatus, jqXHR) {
-                    console.log(data.businesses[0]);
-                    var businessInfo = JSON.parse(JSON.stringify(data.businesses[0]));
-                    console.log('status[' + textStatus + ']', data);
+                    var businessInfo = JSON.parse(JSON.stringify(data));
+                    console.log('status[' + textStatus + ']');
                     var contentString = '<div class="yelpInfoWindow">' +
                                         '<div id="yelpBusinessName">' + businessInfo.name + '</div>' +
                                         '<div id="yelpBusinessInfo">' +
@@ -191,13 +188,75 @@ var appViewModel = function() {
 
     that.toggleMenuWindow = function() {
         $("#menu-window").toggle(500);
-        $("#menu-toggle-button").find("span").toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
+    };
+
+    that.infowindow = function() {
+        console.log('clicked...', this.yelpId());
+    };
+
+    var service = new google.maps.places.PlacesService(map);
+    var request = {
+        location: mapCenter,
+        radius: '500',
+        types: ['store']
+    };
+
+    that.initiateSearch = function() {
+        if (typeof(that.searchInfo()) !== 'undefined' && that.searchInfo() !== '') {
+            console.log('Searching for:' , that.searchInfo());
+            $("#informationWindow").show(500);
+            console.log(mapCenter);
+            request.location = mapCenter;
+            that.viewInfo = new infowindowModel(that.searchInfo());
+            service.nearbySearch(request, callback);
+        } else {
+            console.log('Please enter text to initiate search...');
+        }
+    };
+
+    function callback(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            console.log("Search results received...");
+            for (var i = 0; i < results.length; i++) {
+                that.searchResults.push(new searchResultModel(results[i]));
+            }
+        } else {
+            console.log("search failed...");
+        }
+    }
+
+    that.closeInfoWindow = function() {
+        $("#informationWindow").hide(500);
+        that.searchResults([]);
+    };
+
+    that.clickFunction = function(clicked) {
+        console.log("clicked: ", clicked.location());
+        that.searchCenter(clicked.location());
+        console.log(that.searchCenter());
+        console.log('Activated click function...');
+    };
+
+    that.hideOtherMarkers = function(marker) {
+        // console.log(marker);
+        for (i = 0; i < that.mapMarkers().length; i++) {
+            // console.log(that.mapMarkers()[i].marker().map);
+            if (marker != that.mapMarkers()[i]) {
+                that.mapMarkers()[i].marker().setMap(null);
+            }
+        }
+    };
+
+    that.showAllMarkers = function() {
+        for (i = 0; i < that.mapMarkers().length; i++) {
+            that.mapMarkers()[i].marker().setMap(map);
+        }
     };
 
     // Resize map to fit all markers
     map.fitBounds(bounds);
     mapCenter = map.getCenter();
-    // console.log("Map Center: ", mapCenter.lat(), mapCenter.lng());
+    console.log("Map Center: ", mapCenter.lat(), mapCenter.lng());
 };
 
 function initMap() {
@@ -209,7 +268,6 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: mammothLodging[0].location,
         zoom: 20,
-        mapTypeControl: false,
         styles: styles
     });
 

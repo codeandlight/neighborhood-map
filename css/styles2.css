@@ -1,0 +1,148 @@
+html, body {
+	border: 0;
+	height: 100%;
+	padding: 0;
+	background: white;
+	font-size: 14px;
+}
+
+hr {
+	width: 75%;
+}
+/*****
+Header
+*****/
+header {
+	margin: 0;
+	padding: 10px;
+	background: black;
+	color: white;
+	height: 75px;
+}
+
+/*****
+Map Box
+*****/
+
+.map-box {
+	height: 100%;
+	padding-top: 60px;
+}
+
+#map {
+	height: 100vh;
+}
+
+/*****
+Information Window
+*****/
+#informationWindow {
+	position: absolute;
+	margin-top: 50px;
+	top: 10px;
+	left: 10px;
+	color: black;
+	background: #66FFFF;
+	background: rgba(102, 255, 255, 0.7);
+	z-index: 500;
+	height: 90%;
+	min-width: 300px;
+	width: 45%;
+	display: none;
+	padding-left: 5px;
+	padding-right: 5px;
+	overflow: scroll;
+}
+
+#infoWindowClose {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	border: 1px solid black;
+	padding: 3px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 811px) {
+
+	#informationWindow {
+		margin-top: 100px;
+	}
+}
+
+/*#informationWindow.hidden {
+	display: hidden;
+}*/
+
+/*****
+DisplayInfo Window
+*****/
+
+#displayInfo {
+	height: 80vh;
+	max-width: 400px;
+	color: black;
+	background: rgba(102, 255, 255, 0.5);
+	z-index: 1000;
+	position: absolute;
+	top: 60px;
+	left: 10px;
+	padding: 10px;
+	display: none;
+}
+
+/*********************************************
+* Infowindows
+*********************************************/
+.yelpInfoWindow {
+	font-size: 12px;
+	height: 150px;
+	width: 40vw;
+}
+
+#yelpBusinessName {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	border-bottom: 1px solid gray;
+}
+
+.yelpInfo {
+	margin-top: 5px;
+	float:left;
+	margin-right: 10px;
+}
+
+#yelpImg {
+	height: 125px;
+	float: left;
+	margin-bottom: 5px;
+}
+
+#yelpBusinessInfo {
+	margin-bottom: 5px;
+}
+
+#yelpRatings {
+	width: 84px;
+	height: 17px;
+}
+
+#yelpPhone {
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: bold;
+	bottom-margin: 0;
+	/*font-size: 12px;*/
+}
+
+#yelpBusinessAddress {
+	font-weight: bold;
+	/*font-size: 12px;*/
+}
+
+#yelpSnippet {
+	margin-top: 15px;
+	font-style: italic;
+	/*font-size: 12px;*/
+}
+
