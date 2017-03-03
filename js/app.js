@@ -94,7 +94,7 @@ var markerModel = function(item) {
     // Changes the look of the marker icon
     function makeMarkerIcon(markerColor, markerCenter) {
         var markerImage = new google.maps.MarkerImage(
-            'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|' + markerColor + '|' + markerCenter
+            'https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|' + markerColor + '|' + markerCenter
         );
         return markerImage;
     }
