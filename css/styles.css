@@ -46,14 +46,16 @@ select {
 	/*color: black;*/
 	height: 100%;
 	padding: 30px 5px 5px 5px;
-	/*text-shadow: 0 0 4px white;*/
-	width: 350px;
 }
 
 #menu-toggle {
 	left: 0;
+	font-size: 18px;
+	font-weight: bold;
 	position: absolute;
+	text-align: center;
 	top: 0;
+	width: 100px;
 	z-index: 3000;
 }
 
@@ -78,6 +80,7 @@ select {
 		position: relative;
 		left: 0;
 		top: 0;
+		width: 350px;
 	}
 
 	#menu-toggle {
@@ -94,6 +97,7 @@ select {
 		position: absolute;
 		top: 0;
 		left: 0;
+		width: 85%;
 		z-index: 2000;
 	}
 
