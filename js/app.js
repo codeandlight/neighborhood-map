@@ -72,14 +72,14 @@ var placesInMammoth = [
         phone: '7609343667',
         listView: true,
         locationType: 'Restaurant',
-        location: { lat: 37.642281, lng: -118.965995 }
+        location: { lat: 37.642300, lng: -118.966000 }
     },
     {
         name: 'Starbucks',
         phone: '7609344536',
         listView: true,
         locationType: 'Restaurant',
-        location: { lat: 37.642074, lng: -118.966185 }
+        location: { lat: 37.642250, lng: -118.966350 }
     },
     {
         name: 'Mammoth Brewing Company',
@@ -227,30 +227,33 @@ var markerModel = function(item) {
                 'data': parameterMap,
                 'dataType': 'jsonp',
                 'jsonpCallback': 'cb',
+                'timeout': 8000,
                 'cache': true
             })
-                .fail( function( jqXHR, textStatus, errorThrown) {
-                console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
-                infowindow.setContent('There was an error contacting Yelp...')
-            })
-                .done( function(data, textStatus, jqXHR) {
-                    var businessInfo = JSON.parse(JSON.stringify(data.businesses[0]));
-                    console.log('status[' + textStatus + ']');
-                    var contentString = '<div class="yelpInfoWindow">' +
-                                        '<div id="yelpBusinessName">' + businessInfo.name + '</div>' +
-                                        '<div id="yelpBusinessInfo">' +
-                                        '<div class="yelpInfo"><img id="yelpImg" src="' + businessInfo.image_url + '" alt="' + businessInfo.name + '"></div>' +
-                                        '<div><img id="yelpRatings" src="' + businessInfo.rating_img_url + '" alt="rating: ' + businessInfo.rating + '"></div>' +
-                                        '<div id="yelpPhone"><span class="glyphicon glyphicon-phone-alt"></span> <a href="tel:' + businessInfo.phone + '">' + businessInfo.display_phone + '</a></div>' +
-                                        '<span id="yelpBusinessAddress">' + businessInfo.location.display_address + '</span><br>' +
-                                        '<span id="yelpSnippet">' + businessInfo.snippet_text + '</span><br>' +
-                                        '<span><a href="' + businessInfo.url + '" target="_blank" alt="Yelp Link">See more reviews on Yelp.com</a></span>' +
-                                        '</div></div>';
+            .done( function(data, textStatus, jqXHR) {
+                var businessInfo = JSON.parse(JSON.stringify(data.businesses[0]));
+                console.log('status[' + textStatus + ']');
+                var contentString = '<div class="yelpInfoWindow">' +
+                                    '<div id="yelpBusinessName">' + businessInfo.name + '</div>' +
+                                    '<div id="yelpBusinessInfo">' +
+                                    '<div class="yelpInfo"><img id="yelpImg" src="' + businessInfo.image_url + '" alt="' + businessInfo.name + '"></div>' +
+                                    '<div><img id="yelpRatings" src="' + businessInfo.rating_img_url + '" alt="rating: ' + businessInfo.rating + '"></div>' +
+                                    '<div id="yelpPhone"><span class="glyphicon glyphicon-phone-alt"></span> <a href="tel:' + businessInfo.phone + '">' + businessInfo.display_phone + '</a></div>' +
+                                    '<span id="yelpBusinessAddress">' + businessInfo.location.display_address + '</span><br>' +
+                                    '<span id="yelpSnippet">' + businessInfo.snippet_text + '</span><br>' +
+                                    '<span><a href="' + businessInfo.url + '" target="_blank" alt="Yelp Link">See more reviews on Yelp.com</a></span>' +
+                                    '</div></div>';
                 infowindow.setContent(contentString);
+            })
+            .fail( function( jqXHR, textStatus, errorThrown) {
+                console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
+                infowindow.setContent('Error: Connection timed out. Please try again later.');
+                infowindow.open(map, self.marker());
+            })
+            .always( function() {
+                infowindow.open( map, self.marker() );
             });
-            infowindow.open( map, self.marker() );
         }
-
         infowindow.addListener('closeclick', function() {
             map.fitBounds(bounds);
             infowindow.marker = null;
