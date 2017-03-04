@@ -277,6 +277,14 @@ var markerModel = function(item) {
 };
 
 var weatherModel = function() {
+
+    /*
+    ** This model is for weather. When the page loads, an AJAX call to the Dark Sky API is called
+    ** Knockout observables:
+    **      weatherIcon : contains the information to build the 'current weather icon'
+    **      weatherSummary : contains the text description of the current weather
+    */
+
     var self = this;
 
     self.weatherIcon = ko.observable();
