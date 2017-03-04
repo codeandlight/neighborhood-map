@@ -30,10 +30,9 @@ a:link, a:visited {
 }
 
 a:hover {
-	color: #95DCFD;
 	background: white;
+	color: #95DCFD;
 	text-decoration: none;
-	/*text-shadow: 0 0 4px black;*/
 }
 
 hr {
@@ -50,7 +49,6 @@ select {
 #menu-window {
 	background: #353535;
 	background: rgba(53, 53, 53, 0.6);
-	/*color: black;*/
 	height: 100%;
 	padding: 30px 5px 20px 5px;
 }
@@ -100,7 +98,23 @@ select {
 }
 
 @media screen and (max-width: 768px) {
+
+	a:link, a:visited {
+		color: white;
+		text-decoration: none;
+		/*text-shadow: 0 0 4px black;*/
+	}
+
+	a:hover, a:active {
+		color: black;
+		background: #95dcfd;
+		text-decoration: none;
+		/*text-shadow: 0 0 4px black;*/
+	}
+
+
 	#menu-window {
+		color: white;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -156,10 +170,10 @@ Yelp Infowindow
 }
 
 #yelpPhone {
-	text-decoration: none;
+	margin-bottom: 0;
 	font-size: 14px;
 	font-weight: bold;
-	bottom-margin: 0;
+	text-decoration: none;
 }
 
 #yelpBusinessAddress {
@@ -167,8 +181,8 @@ Yelp Infowindow
 }
 
 #yelpSnippet {
-	margin-top: 15px;
 	font-style: italic;
+	margin-top: 15px;
 }
 
 /*
