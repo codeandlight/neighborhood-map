@@ -8,7 +8,6 @@ A live version of this site can be found at [https://kajun.github.io/FEND-neighb
 You can also clone or download the repository and open the **index.html** file in your browser. 
 
 ### Languages / Frameworks / Libraries / APIs
-In this project, I am using the following:
 - Bootstrap
 - CSS3
 - Dark Sky API
