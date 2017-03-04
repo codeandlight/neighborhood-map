@@ -24,4 +24,4 @@ In this project, I am using the following:
 - Google Maps Styling Wizard [Styling Wizard: Google Maps](https://mapstyle.withgoogle.com/ "Google Maps Styling Wizard")
 - Knockout.js [knockoutjs.com](http://knockoutjs.com "Knockout JS")
 - Weather Icons by Erik Flowers [Weather-icons] (http://erikflowers.github.io/weather-icons "Weather Icons")
-- Yelp OAuth JS by Mnemonic [Github.com](https://gist.github.com/mnemonicflow/1b90ef0d294c692d24458b8378054c81 "Mnemonic")
+- Yelp OAuth JS by Mnemonicflow [Github.com](https://gist.github.com/mnemonicflow/1b90ef0d294c692d24458b8378054c81 "Mnemonicflow")

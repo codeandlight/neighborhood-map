@@ -155,7 +155,8 @@ var markerModel = function(item) {
     ** makeMarkerIcon : creates a customized marker color activated by marker listener events
     ** populateInfoWindow : activated by Knockout event in list view or marker listener event on the map,
     **                      performs AJAX call to Yelp Business Search API using the phone number, parses received
-    **                      data and creates the Google InfoWindow Object.
+    **                      data and creates the Google InfoWindow Object. Calls to Yelp API require OAuth authorization.
+    **                      This is performed with the help of Mnemonicflow's Yelp OAuth JS scripts.
     */
 
     var self = this;
