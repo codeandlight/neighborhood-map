@@ -5,117 +5,131 @@ Google Maps Javascript
 // List of Mammoth Lakes Locations
 var placesInMammoth = [
     {
-        name: 'Cinnamon Bear Inn',
-        phone: '7609342873',
+        name: "Cinnamon Bear Inn",
+        phone: "7609342873",
         listView: true,
-        locationType: 'Lodging',
+        locationType: "Lodging",
         location: { lat: 37.646934, lng: -118.971888 }
     },
     {
-        name: 'Quality Inn',
-        phone: '7609345114',
+        name: "Quality Inn",
+        phone: "7609345114",
         listView: true,
-        locationType: 'Lodging',
+        locationType: "Lodging",
         location: { lat: 37.648242, lng: -118.975139 }
     },
     {
-        name: 'Innsbruck Lodge',
-        phone: '7609343035',
+        name: "Innsbruck Lodge",
+        phone: "7609343035",
         listView: true,
-        locationType: 'Lodging',
+        locationType: "Lodging",
         location: { lat: 37.651181, lng: -118.982188 }
     },
     {
-        name: 'Rodeway Inn Wildwood Inn',
-        phone: '7609346855',
+        name: "Rodeway Inn Wildwood Inn",
+        phone: "7609346855",
         listView: true,
-        locationType: 'Lodging',
+        locationType: "Lodging",
         location: { lat: 37.649133, lng: -118.976446 }
     },
     {
-        name: 'M Inn Mammoth',
-        phone: '7609342710',
+        name: "M Inn Mammoth",
+        phone: "7609342710",
         listView: true,
-        locationType: 'Lodging',
+        locationType: "Lodging",
         location: { lat: 37.647426, lng: -118.976800 }
     },
     {
-        name: 'Shilo Inn Suites',
-        phone: '7609650544',
+        name: "Shilo Inn Suites",
+        phone: "7609650544",
         listView: true,
-        locationType: 'Lodging',
+        locationType: "Lodging",
         location: { lat: 37.646093, lng: -118.964614 }
     },
     {
-        name: 'Travelodge',
-        phone: '8007606483',
+        name: "Travelodge",
+        phone: "8007606483",
         listView: true,
-        locationType: 'Lodging',
+        locationType: "Lodging",
         location: { lat: 37.649304, lng: -118.974173 }
     },
     {
-        name: 'Alpenhof Lodge',
-        phone: '7609346330',
+        name: "Alpenhof Lodge",
+        phone: "7609346330",
         listView: true,
-        locationType: 'Lodging',
+        locationType: "Lodging",
         location: { lat: 37.650034, lng: -118.983540 }
     },
     {
         name: "Giovanni's Pizzeria",
-        phone: '7609347563',
+        phone: "7609347563",
         listView: true,
-        locationType: 'Restaurant',
+        locationType: "Restaurant",
         location: { lat: 37.639957, lng: -118.964398 }
     },
     {
         name: "Roberto's Mexican Cafe",
-        phone: '7609343667',
+        phone: "7609343667",
         listView: true,
-        locationType: 'Restaurant',
+        locationType: "Restaurant",
         location: { lat: 37.642300, lng: -118.966000 }
     },
     {
-        name: 'Starbucks',
-        phone: '7609344536',
+        name: "Starbucks",
+        phone: "7609344536",
         listView: true,
-        locationType: 'Restaurant',
+        locationType: "Restaurant",
         location: { lat: 37.642250, lng: -118.966350 }
     },
     {
-        name: 'Mammoth Brewing Company',
-        phone: '7609347141',
+        name: "Mammoth Brewing Company",
+        phone: "7609347141",
         listView: true,
-        locationType: 'Restaurant',
+        locationType: "Restaurant",
         location: { lat: 37.648632, lng: -118.983435 }
     },
     {
-        name: 'Minaret Village Shopping Center',
-        phone: '7609346005',
+        name: "Minaret Village Shopping Center",
+        phone: "7609346005",
         listView: true,
-        locationType: 'Shopping',
+        locationType: "Shopping",
         location: { lat: 37.639138, lng: -118.964294 }
     },
     {
-        name: 'Vons / Starbucks',
-        phone: '7609344536',
+        name: "Vons / Starbucks",
+        phone: "7609344536",
         listView: true,
-        locationType: 'Shopping',
+        locationType: "Shopping",
         location: { lat: 37.638545, lng: -118.965243 }
     },
     {
-        name: 'Mammoth Fun Shop',
-        phone: '7609241111',
+        name: "Mammoth Fun Shop",
+        phone: "7609241111",
         listView: true,
-        locationType: 'Shopping',
+        locationType: "Shopping",
         location: { lat: 37.646967, lng: -118.968285 }
     },
     {
         name: "McCoy's Mammoth Memories",
-        phone: '7609247070',
+        phone: "7609247070",
         listView: true,
-        locationType: 'Shopping',
+        locationType: "Shopping",
         location: { lat: 37.650671, lng: -118.985323 }
     },
+    {
+        name: "Mammoth Rock 'n' Bowl / Mammoth Rock Brasserie",
+        phone: "7609344200",
+        listView: true,
+        locationType: "Entertainment",
+        location: { lat: 37.638066, lng: -118.965007}
+    },
+    {
+        name: "Minaret Cinemas",
+        phone: "7609343131",
+        listView: true,
+        locationType: "Entertainment",
+        location: { lat: 37.638921, lng: -118.964530}
+    }
 ];
 
 // Variables placed in the global scope to ensure it only has one value at all times
@@ -125,6 +139,7 @@ var map, bounds, infowindow, infoWindowOptions, mapCenter;
 var markers = [];
 
 var markerModel = function(item) {
+
     /*
     ** This is the model for the markers that are placed on the Google Map and in the dropdown menu.
     ** Knockout observables:
@@ -142,6 +157,7 @@ var markerModel = function(item) {
     **                      performs AJAX call to Yelp Business Search API using the phone number, parses the recieved
     **                      data and creates the Google InfoWindow Object.
     */
+
     var self = this;
 
     // Variables that define the custom marker look and calls makeMarkerIcon() to create them
@@ -270,14 +286,14 @@ var appViewModel = function() {
     **      locationType : Array of location types that used to filter mapMarkers
     **      selectedLocationType : Observable to hold the value of the locationType for filtering
     **      filterMarkers : Computed observable that filters the list view and sets the visibility of
-    **                      each marker
+    **                      each marker based on selectedLocadtionType(). It also closes any open infowindow
+    **                      and sets infowindow.marker to null whenever the filter is changed.
     */
+
     var that = this;
     that.mapMarkers = ko.observableArray([]);
-
-    that.locationType = ko.observableArray(['All', 'Lodging', 'Restaurant', 'Shopping']);
+    that.locationType = ko.observableArray(['All', 'Entertainment', 'Lodging', 'Restaurant', 'Shopping']);
     that.selectedLocationType = ko.observable('All');
-
     that.filterMarkers = ko.computed(function() {
         infowindow.close();
         infowindow.marker = null;
@@ -299,11 +315,12 @@ var appViewModel = function() {
         }
     });
 
-    // Add each hotel to markers array
+    // Create a new markerModel object and push to mapMarkers().
     placesInMammoth.forEach(function(location) {
         that.mapMarkers.push(new markerModel(location));
     });
 
+    // Toggles the visibility of the menu window. Only visible when screen is <= 768px.
     that.toggleMenuWindow = function() {
         $("#menu-window").toggle(500);
         $("#menu-toggle-button").find("span").toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
@@ -328,7 +345,7 @@ function initMap() {
         zoom: 20,
         mapTypeControl: false,
         disableDoubleClickZoom: true,
-        fullscreentControl: false,
+        fullscreenControl: false,
         streetViewControl: false,
         zoomControl: false,
         styles: styles
