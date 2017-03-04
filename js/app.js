@@ -264,7 +264,6 @@ var markerModel = function(item) {
             .fail( function( jqXHR, textStatus, errorThrown) {
                 console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
                 infowindow.setContent('Error: Connection timed out. Please try again later.');
-                infowindow.open(map, self.marker());
             })
             .always( function() {
                 infowindow.open( map, self.marker() );
@@ -322,13 +321,11 @@ var appViewModel = function() {
 
     // Sort mapMarkers by name
     that.mapMarkers.sort(function(one, two) {
-        console.log(one, two);
         return one.name() == two.name() ? 0 : (one.name() < two.name() ? -1 : 1);
     });
 
     // Populate that.locationType observable array
     for (var i = 0; i < that.mapMarkers().length; i++) {
-        console.log(that.locationType().includes(that.mapMarkers()[i].locationType()));
         if(!that.locationType().includes(that.mapMarkers()[i].locationType())) {
             that.locationType.push(that.mapMarkers()[i].locationType());
         }

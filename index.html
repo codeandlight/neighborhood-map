@@ -6,25 +6,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Neighborhood Map - Project: Udacity Front End Nanodegree">
+    <meta name="author" content="Jun Clemente">
 
     <title>Visit Mammoth Lakes - California</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/weather-icons.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 
 <body>
@@ -32,7 +21,7 @@
 <main>
   <div id="menu-toggle"><div id="menu-toggle-button" data-bind="click: toggleMenuWindow">Menu <span class="glyphicon glyphicon-chevron-up"></span></div></div>
   <div id="menu-window">
-    <h3>Mammoth Lakes</h3>
+    <h2>Visit Mammoth Lakes!</h2>
     <p>Filter Locations: <select data-bind="options: locationType, value: selectedLocationType"></select></p>
     <ul data-bind="foreach: mapMarkers">
       <!-- ko if: listView() -->
@@ -45,7 +34,6 @@
 
 
     <script src="js/libs/jquery.js"></script>
-    <!-- <script src="js/libs/bootstrap.min.js"></script> -->
     <script src="js/libs/knockout-3.4.1.js"></script>
     <script src="js/libs/yelpapi.min.js"></script>
     <!-- Google Maps API -->
