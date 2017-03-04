@@ -76,10 +76,10 @@ var placesInMammoth = [
     },
     {
         name: "Starbucks",
-        phone: "7609344536",
+        phone: "7609340698",
         listView: true,
         locationType: "Restaurant",
-        location: { lat: 37.642250, lng: -118.966350 }
+        location: { lat: 37.651195, lng: -118.985324 }
     },
     {
         name: "Mammoth Brewing Company",
@@ -154,7 +154,7 @@ var markerModel = function(item) {
     **
     ** makeMarkerIcon : creates a customized marker color activated by marker listener events
     ** populateInfoWindow : activated by Knockout event in list view or marker listener event on the map,
-    **                      performs AJAX call to Yelp Business Search API using the phone number, parses the recieved
+    **                      performs AJAX call to Yelp Business Search API using the phone number, parses received
     **                      data and creates the Google InfoWindow Object.
     */
 
@@ -226,9 +226,9 @@ var markerModel = function(item) {
         if (infowindow.marker === self.marker()) {
             console.log('marker already selected');
         } else {
+            map.panTo(self.location());
             infowindow.marker = self.marker();
             infowindow.setContent('retrieving information...');
-            map.panTo(self.location());
             var message = {
                 'action': 'https://api.yelp.com/v2/phone_search?phone=' + self.phone() + '&cc=US',
                 'method': 'GET',
@@ -326,7 +326,7 @@ var appViewModel = function() {
     var that = this;
     that.currentWeather = ko.observable();
     that.mapMarkers = ko.observableArray([]);
-    that.locationType = ko.observableArray(['All']), // ['All', 'Entertainment', 'Lodging', 'Restaurant', 'Shopping']);
+    that.locationType = ko.observableArray(['All']);
     that.selectedLocationType = ko.observable('All');
 
     that.filterMarkers = ko.computed(function() {
@@ -350,6 +350,7 @@ var appViewModel = function() {
         }
     });
 
+    // Get current weather
     that.currentWeather(new weatherModel());
 
     // Create a new markerModel object and push to mapMarkers().
@@ -362,7 +363,7 @@ var appViewModel = function() {
         return one.name() == two.name() ? 0 : (one.name() < two.name() ? -1 : 1);
     });
 
-    // Populate that.locationType observable array
+    // Populate locationType observable array
     for (var i = 0; i < that.mapMarkers().length; i++) {
         if(!that.locationType().includes(that.mapMarkers()[i].locationType())) {
             that.locationType.push(that.mapMarkers()[i].locationType());
