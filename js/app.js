@@ -14,13 +14,9 @@ var placesInMammoth = [
     {
         name: 'Quality Inn',
         phone: '7609345114',
-
         listView: true,
-
         locationType: 'Lodging',
-
         location: { lat: 37.648242, lng: -118.975139 }
-
     },
     {
         name: 'Innsbruck Lodge',
@@ -76,14 +72,14 @@ var placesInMammoth = [
         phone: '7609343667',
         listView: true,
         locationType: 'Restaurant',
-        location: { lat: 37.642279, lng: -118.965988 }
+        location: { lat: 37.642281, lng: -118.965995 }
     },
     {
         name: 'Starbucks',
         phone: '7609344536',
         listView: true,
         locationType: 'Restaurant',
-        location: { lat: 37.642279, lng: -118.965988 }
+        location: { lat: 37.642074, lng: -118.966185 }
     },
     {
         name: 'Mammoth Brewing Company',

@@ -2,6 +2,7 @@ body, html {
 	height: 100%;
 	padding: 0;
 	margin: 0;
+	color: black;
 }
 
 main {
@@ -9,8 +10,8 @@ main {
 	display: flex;
 }
 
-a:link, a:visited {
-	color: white;
+ul > li > a:link, a:visited {
+	color: black;
 	text-decoration: none;
 }
 
@@ -25,9 +26,6 @@ a:hover {
 	color: black;
 	height: 100%;
 	padding: 30px 5px 5px 5px;
-	/*left: 0;
-	position: relative;
-	top: 0;*/
 }
 
 
@@ -42,7 +40,6 @@ a:hover {
 	background: black;
 	color: white;
 	height: 30px;
-	/*width: 75px;*/
 	padding: 5px;
 }
 
@@ -133,16 +130,13 @@ Yelp Infowindow
 	font-size: 14px;
 	font-weight: bold;
 	bottom-margin: 0;
-	/*font-size: 12px;*/
 }
 
 #yelpBusinessAddress {
 	font-weight: bold;
-	/*font-size: 12px;*/
 }
 
 #yelpSnippet {
 	margin-top: 15px;
 	font-style: italic;
-	/*font-size: 12px;*/
 }
