@@ -292,7 +292,7 @@ var appViewModel = function() {
 
     var that = this;
     that.mapMarkers = ko.observableArray([]);
-    that.locationType = ko.observableArray(['All', 'Entertainment', 'Lodging', 'Restaurant', 'Shopping']);
+    that.locationType = ko.observableArray(['All']), // ['All', 'Entertainment', 'Lodging', 'Restaurant', 'Shopping']);
     that.selectedLocationType = ko.observable('All');
     that.filterMarkers = ko.computed(function() {
         infowindow.close();
@@ -319,6 +319,23 @@ var appViewModel = function() {
     placesInMammoth.forEach(function(location) {
         that.mapMarkers.push(new markerModel(location));
     });
+
+    // Sort mapMarkers by name
+    that.mapMarkers.sort(function(one, two) {
+        console.log(one, two);
+        return one.name() == two.name() ? 0 : (one.name() < two.name() ? -1 : 1);
+    });
+
+    // Populate that.locationType observable array
+    for (var i = 0; i < that.mapMarkers().length; i++) {
+        console.log(that.locationType().includes(that.mapMarkers()[i].locationType()));
+        if(!that.locationType().includes(that.mapMarkers()[i].locationType())) {
+            that.locationType.push(that.mapMarkers()[i].locationType());
+        }
+    }
+
+    // Sort locationType alphabetically
+    that.locationType().sort();
 
     // Toggles the visibility of the menu window. Only visible when screen is <= 768px.
     that.toggleMenuWindow = function() {
