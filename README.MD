@@ -4,8 +4,8 @@
 This is the Neighborhood Map project. This project uses a variety of technologies learned throughout the Front-End Web Development (FEND) Nanodegree program at [Udacity.com](http://udacity.com "Udacity.com").
 
 ### How To Use This Page
-A live version of this site can be found at [https://kajun.github.io/FEND-neighborhood-map/](https://kajun.github.io/FEND-neighborhood-map/ "FEND Neighborhood Map")
-To view a working version, clone or download the repository and open the **index.html** file in your browser. 
+A live version of this site can be found at [https://kajun.github.io/FEND-neighborhood-map/](https://kajun.github.io/FEND-neighborhood-map/ "FEND Neighborhood Map").
+You cal also clone or download the repository and open the **index.html** file in your browser. 
 
 ### Languages / Frameworks / Libraries / APIs
 In this project, I am using the following:
