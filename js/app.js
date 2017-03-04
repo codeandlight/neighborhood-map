@@ -262,7 +262,7 @@ var markerModel = function(item) {
                 infowindow.setContent(contentString);
             })
             .fail( function( jqXHR, textStatus, errorThrown) {
-                console.log('error[' + errorThrown + '], status[' + textStatus + '], jqXHR[' + JSON.stringify(jqXHR) + ']');
+                console.log('error[' + errorThrown + '], status[' + textStatus + ']');
                 infowindow.setContent('Error: Connection timed out. Please try again later.');
             })
             .always( function() {
@@ -280,7 +280,8 @@ var weatherModel = function() {
     var self = this;
 
     self.weatherIcon = ko.observable();
-    self.weatherSummary = ko.observable();
+    self.weatherSummary = ko.observable('fetching weather...');
+    self.results = ko.observable(null);
     var darkSkyUrl = "https://api.darksky.net/forecast/";
     var darkSkyKey = "19d44a25d3797ee6bb826a9c306e6d4c";
     var darkSkyLoc = { lat: 37.649123, lng: -118.977546 };
@@ -292,9 +293,12 @@ var weatherModel = function() {
         timeout: 15000
     })
     .done(function(response) {
-        console.log(response);
         self.weatherIcon('<i class="wi wi-forecast-io-' + response.currently.icon + '"></i>');
         self.weatherSummary(response.currently.summary);
+    })
+    .fail( function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown);
+        self.weatherSummary('Error: unable to fetch weather. Please try again later...');
     });
 };
 

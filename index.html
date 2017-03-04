@@ -31,9 +31,8 @@
   <div id="menu-window">
     <h2>Visit Mammoth Lakes!</h2>
     <div id="weatherInfo" data-bind="with: currentWeather">
-      <h5>Current Weather: </h5>
+      <h5>Current Weather <a href="https://darksky.net/poweredby/" target="_blank">(Powered by Dark Sky)</a> : </h5>
       <span id="weatherIcon" data-bind="html: weatherIcon"></span> <span data-bind="text: weatherSummary"></span>
-      <h6><a href="https://darksky.net/poweredby/" target="_blank">Powered by Dark Sky</a></h6>
     </div>
     <hr>
     <p>Filter Locations: <select data-bind="options: locationType, value: selectedLocationType"></select></p>
