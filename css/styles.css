@@ -90,3 +90,59 @@ a:hover {
 	}
 
 }
+
+/*
+Yelp Infowindow
+*/
+.yelpInfoWindow {
+	font-size: 12px;
+	height: 150px;
+	width: 40vw;
+}
+
+#yelpBusinessName {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	border-bottom: 1px solid gray;
+}
+
+.yelpInfo {
+	margin-top: 5px;
+	float:left;
+	margin-right: 10px;
+}
+
+#yelpImg {
+	height: 125px;
+	float: left;
+	margin-bottom: 5px;
+}
+
+#yelpBusinessInfo {
+	margin-bottom: 5px;
+}
+
+#yelpRatings {
+	width: 84px;
+	height: 17px;
+}
+
+#yelpPhone {
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: bold;
+	bottom-margin: 0;
+	/*font-size: 12px;*/
+}
+
+#yelpBusinessAddress {
+	font-weight: bold;
+	/*font-size: 12px;*/
+}
+
+#yelpSnippet {
+	margin-top: 15px;
+	font-style: italic;
+	/*font-size: 12px;*/
+}
