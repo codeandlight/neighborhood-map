@@ -5,13 +5,13 @@ This is the Neighborhood Map project. This project uses a variety of technologie
 
 ### How To Use This Page
 A live version of this site can be found at [https://kajun.github.io/FEND-neighborhood-map/](https://kajun.github.io/FEND-neighborhood-map/ "FEND Neighborhood Map")
-Due to the limitations of the free OpenWeatherMap.com API, the Weather 
 To view a working version, clone or download the repository and open the **index.html** file in your browser. 
 
-### Languages / Frameworks / Libraries / API
+### Languages / Frameworks / Libraries / APIs
 In this project, I am using the following:
 - Bootstrap
 - CSS3
+- Dark Sky API
 - Google Maps Javascript API
 - HTML5
 - Javascript
@@ -23,4 +23,4 @@ In this project, I am using the following:
 - Bootstrap v3.3.7 [getBoostrap.com](http://getbootstrap.com "getBootstrap.com")
 - Google Maps Styling Wizard [Styling Wizard: Google Maps](https://mapstyle.withgoogle.com/ "Google Maps Styling Wizard")
 - Knockout.js [knockoutjs.com](http://knockoutjs.com "Knockout JS")
-- Yelp OAuth JS [Github.com](https://gist.github.com/mnemonicflow/1b90ef0d294c692d24458b8378054c81 "Mnemonic")
+- Yelp OAuth JS by Mnemonic [Github.com](https://gist.github.com/mnemonicflow/1b90ef0d294c692d24458b8378054c81 "Mnemonic")

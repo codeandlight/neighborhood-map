@@ -1,6 +1,6 @@
 body, html {
 	color: black;
-	font-size: 16px;
+	font-size: 14px;
 	height: 100%;
 	margin: 0;
 	padding: 0;
@@ -12,7 +12,7 @@ main {
 }
 
 ul {
-	font-size: 18px;
+	font-size: 15px;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -36,6 +36,13 @@ a:hover {
 	/*text-shadow: 0 0 4px black;*/
 }
 
+hr {
+	margin: 0 auto;
+	margin-bottom: 15px;
+	padding: 0;
+	width: 80%;
+	text-align: center;
+}
 select {
 	font-size: inherit;
 }
@@ -45,7 +52,7 @@ select {
 	background: rgba(53, 53, 53, 0.6);
 	/*color: black;*/
 	height: 100%;
-	padding: 30px 5px 5px 5px;
+	padding: 30px 5px 20px 5px;
 }
 
 #menu-toggle {
@@ -162,4 +169,16 @@ Yelp Infowindow
 #yelpSnippet {
 	margin-top: 15px;
 	font-style: italic;
+}
+
+/*
+Weather
+*/
+#weatherInfo {
+	color: white;
+}
+#weatherIcon {
+	font-size: 35px;
+	font-weight: bold;
+	text-align: right;
 }

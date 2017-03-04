@@ -276,6 +276,28 @@ var markerModel = function(item) {
     }
 };
 
+var weatherModel = function() {
+    var self = this;
+
+    self.weatherIcon = ko.observable();
+    self.weatherSummary = ko.observable();
+    var darkSkyUrl = "https://api.darksky.net/forecast/";
+    var darkSkyKey = "19d44a25d3797ee6bb826a9c306e6d4c";
+    var darkSkyLoc = { lat: 37.649123, lng: -118.977546 };
+    var weatherApiUrl = darkSkyUrl + darkSkyKey + '/' + darkSkyLoc.lat + ',' + darkSkyLoc.lng;
+
+    $.ajax({
+        url: weatherApiUrl,
+        dataType: "jsonp",
+        timeout: 15000
+    })
+    .done(function(response) {
+        console.log(response);
+        self.weatherIcon('<i class="wi wi-forecast-io-' + response.currently.icon + '"></i>');
+        self.weatherSummary(response.currently.summary);
+    });
+};
+
 var appViewModel = function() {
 
     /*
@@ -290,9 +312,11 @@ var appViewModel = function() {
     */
 
     var that = this;
+    that.currentWeather = ko.observable();
     that.mapMarkers = ko.observableArray([]);
     that.locationType = ko.observableArray(['All']), // ['All', 'Entertainment', 'Lodging', 'Restaurant', 'Shopping']);
     that.selectedLocationType = ko.observable('All');
+
     that.filterMarkers = ko.computed(function() {
         infowindow.close();
         infowindow.marker = null;
@@ -313,6 +337,8 @@ var appViewModel = function() {
             }
         }
     });
+
+    that.currentWeather(new weatherModel());
 
     // Create a new markerModel object and push to mapMarkers().
     placesInMammoth.forEach(function(location) {
