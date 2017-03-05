@@ -227,14 +227,14 @@ var MarkerModel = function(item) {
 
     // Populates infowindow after successful AJAX call to Yelp API
     function populateInfoWindow() {
-        if (infowindow.marker === self.marker()) {
+        if (infowindow.marker === self.marker) {
             console.log('marker already selected');
         } else {
-            map.panTo(self.location());
-            infowindow.marker = self.marker();
+            map.panTo(self.location);
+            infowindow.marker = self.marker;
             infowindow.setContent('retrieving information...');
             var message = {
-                'action': 'https://api.yelp.com/v2/phone_search?phone=' + self.phone() + '&cc=US',
+                'action': 'https://api.yelp.com/v2/phone_search?phone=' + self.phone + '&cc=US',
                 'method': 'GET',
                 'parameters': parameters
             };
@@ -270,7 +270,7 @@ var MarkerModel = function(item) {
                 infowindow.setContent('Error: Connection timed out. Please try again later.');
             })
             .always( function() {
-                infowindow.open( map, self.marker() );
+                infowindow.open( map, self.marker );
             });
         }
         infowindow.addListener('closeclick', function() {
@@ -339,14 +339,14 @@ var AppViewModel = function() {
         map.fitBounds(bounds);
         for (var i = 0; i < that.mapMarkers().length; i++) {
             if (that.selectedLocationType() == 'All') {
-                that.mapMarkers()[i].marker.setMap(map);
+                that.mapMarkers()[i].marker.setVisible(true);
                 that.mapMarkers()[i].marker.setAnimation(google.maps.Animation.DROP);
                 that.mapMarkers()[i].listView(true);
             } else {
-                that.mapMarkers()[i].marker.setMap(null);
+                that.mapMarkers()[i].marker.setVisible(false);
                 that.mapMarkers()[i].listView(false);
                 if (that.selectedLocationType() == that.mapMarkers()[i].locationType) {
-                    that.mapMarkers()[i].marker.setMap(map);
+                    that.mapMarkers()[i].marker.setVisible(true);
                     that.mapMarkers()[i].marker.setAnimation(google.maps.Animation.DROP);
                     that.mapMarkers()[i].listView(true);
                 }
