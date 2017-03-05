@@ -139,7 +139,7 @@ var map, bounds, infowindow, infoWindowOptions, mapCenter;
 // Initialize markers array
 var markers = [];
 
-var markerModel = function(item) {
+var MarkerModel = function(item) {
 
     /*
     ** This is the model for the markers that are placed on the Google Map and in the dropdown menu.
@@ -278,7 +278,7 @@ var markerModel = function(item) {
     }
 };
 
-var weatherModel = function() {
+var WeatherModel = function() {
 
     /*
     ** This model is for weather. When the page loads, an AJAX call to the Dark Sky API is called
@@ -312,7 +312,7 @@ var weatherModel = function() {
     });
 };
 
-var appViewModel = function() {
+var AppViewModel = function() {
 
     /*
     ** This is the view model for the Knockout bindings.
@@ -353,11 +353,11 @@ var appViewModel = function() {
     });
 
     // Get current weather
-    that.currentWeather(new weatherModel());
+    that.currentWeather(new WeatherModel());
 
-    // Create a new markerModel object and push to mapMarkers().
+    // Create a new MarkerModel object and push to mapMarkers().
     placesInMammoth.forEach(function(location) {
-        that.mapMarkers.push(new markerModel(location));
+        that.mapMarkers.push(new MarkerModel(location));
     });
 
     // Sort mapMarkers by name
@@ -423,5 +423,5 @@ function initMap() {
     bounds = new google.maps.LatLngBounds();
 
     // Apply ViewModel
-    ko.applyBindings( new appViewModel() );
+    ko.applyBindings( new AppViewModel() );
 }
