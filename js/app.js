@@ -4,7 +4,7 @@ Google Maps Javascript
 
 
 // List of Mammoth Lakes Locations
-var placesInMammoth = [
+var PLACES_IN_MAMMOTH = [
     {
         name: "Cinnamon Bear Inn",
         phone: "7609342873",
@@ -292,10 +292,10 @@ var WeatherModel = function() {
     self.weatherIcon = ko.observable();
     self.weatherSummary = ko.observable('fetching weather...');
     self.results = ko.observable(null);
-    var darkSkyUrl = "https://api.darksky.net/forecast/";
-    var darkSkyKey = "19d44a25d3797ee6bb826a9c306e6d4c";
-    var darkSkyLoc = { lat: 37.649123, lng: -118.977546 };
-    var weatherApiUrl = darkSkyUrl + darkSkyKey + '/' + darkSkyLoc.lat + ',' + darkSkyLoc.lng;
+    var DARK_SKY_URL = "https://api.darksky.net/forecast/";
+    var DARK_SKY_KEY = "19d44a25d3797ee6bb826a9c306e6d4c";
+    var DARK_SKY_LOC = { lat: 37.649123, lng: -118.977546 };
+    var weatherApiUrl = DARK_SKY_URL + DARK_SKY_KEY + '/' + DARK_SKY_LOC.lat + ',' + DARK_SKY_LOC.lng;
 
     $.ajax({
         url: weatherApiUrl,
@@ -356,7 +356,7 @@ var AppViewModel = function() {
     that.currentWeather(new WeatherModel());
 
     // Create a new MarkerModel object and push to mapMarkers().
-    placesInMammoth.forEach(function(location) {
+    PLACES_IN_MAMMOTH.forEach(function(location) {
         that.mapMarkers.push(new MarkerModel(location));
     });
 
@@ -408,7 +408,7 @@ function initMap() {
 
     // Initialize and create map
     map = new google.maps.Map(document.getElementById('map'), {
-        center: placesInMammoth[0].location,
+        center: PLACES_IN_MAMMOTH[0].location,
         zoom: 20,
         mapTypeControl: false,
         disableDoubleClickZoom: true,
