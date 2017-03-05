@@ -144,10 +144,12 @@ var MarkerModel = function(item) {
     /*
     ** This is the model for the markers that are placed on the Google Map and in the dropdown menu.
     ** Knockout observables:
+    **      listView : boolean variable used for filtering list view
+    **
+    ** Variables:
     **      name : name of location
     **      phone : phone number of location, used for Yelp API business search
     **      locationType : type of location , used for filtering marker and list view
-    **      listView : boolean variable used for filtering list view
     **      location : Google LatLng Object
     **      marker : Google Marker Object
     **
@@ -166,51 +168,51 @@ var MarkerModel = function(item) {
     var defaultMarker = makeMarkerIcon('76F5F3', '360CF3');
     var highlightedMarker = makeMarkerIcon('360CF3', '76F5F3');
 
-    self.name = ko.observable(item.name);
-    self.phone = ko.observable(item.phone);
-    self.locationType = ko.observable(item.locationType);
+    self.name = item.name; //ko.observable(item.name);
+    self.phone = item.phone; //ko.observable(item.phone);
+    self.locationType = item.locationType; //ko.observable(item.locationType);
     self.listView = ko.observable(item.listView);
-    self.location = ko.observable(item.location);
-    self.marker = ko.observable(new google.maps.Marker({
-        position: this.location(),
-        title: this.name(),
+    self.location = item.location; // ko.observable(item.location);
+    self.marker = new google.maps.Marker({
+        position: this.location,
+        title: this.name,
         map: map,
         icon: defaultMarker,
         animation: google.maps.Animation.DROP
-    }));
+    });
 
     // Add marker location to bounds to resize map and fit all markers
-    bounds.extend(self.location());
+    bounds.extend(self.location);
 
     // Add event listeners for markers on the map
-    self.marker().addListener('mouseover', function() {
+    self.marker.addListener('mouseover', function() {
         this.setIcon(highlightedMarker);
     });
-    self.marker().addListener('mouseout', function() {
+    self.marker.addListener('mouseout', function() {
         this.setIcon(defaultMarker);
     });
-    self.marker().addListener('click', function() {
+    self.marker.addListener('click', function() {
         populateInfoWindow();
     });
 
     // Knockout events
     self.previewOn = function() {
-        self.marker().setIcon(highlightedMarker);
-        self.marker().setAnimation(google.maps.Animation.BOUNCE);
+        self.marker.setIcon(highlightedMarker);
+        self.marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function() {
-            self.marker().setAnimation(-1);
+            self.marker.setAnimation(-1);
         }, 1400);
     };
     self.previewOut = function() {
-        self.marker().setIcon(defaultMarker);
-        self.marker().setAnimation(-1);
+        self.marker.setIcon(defaultMarker);
+        self.marker.setAnimation(-1);
     };
     self.selectMarker = function() {
         map.setZoom(16);
-        self.marker().setIcon(highlightedMarker);
-        self.marker().setAnimation(google.maps.Animation.BOUNCE);
+        self.marker.setIcon(highlightedMarker);
+        self.marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function() {
-            self.marker().setAnimation(-1);
+            self.marker.setAnimation(-1);
         }, 1400);
         populateInfoWindow();
     };
@@ -337,15 +339,15 @@ var AppViewModel = function() {
         map.fitBounds(bounds);
         for (var i = 0; i < that.mapMarkers().length; i++) {
             if (that.selectedLocationType() == 'All') {
-                that.mapMarkers()[i].marker().setMap(map);
-                that.mapMarkers()[i].marker().setAnimation(google.maps.Animation.DROP);
+                that.mapMarkers()[i].marker.setMap(map);
+                that.mapMarkers()[i].marker.setAnimation(google.maps.Animation.DROP);
                 that.mapMarkers()[i].listView(true);
             } else {
-                that.mapMarkers()[i].marker().setMap(null);
+                that.mapMarkers()[i].marker.setMap(null);
                 that.mapMarkers()[i].listView(false);
-                if (that.selectedLocationType() == that.mapMarkers()[i].locationType()) {
-                    that.mapMarkers()[i].marker().setMap(map);
-                    that.mapMarkers()[i].marker().setAnimation(google.maps.Animation.DROP);
+                if (that.selectedLocationType() == that.mapMarkers()[i].locationType) {
+                    that.mapMarkers()[i].marker.setMap(map);
+                    that.mapMarkers()[i].marker.setAnimation(google.maps.Animation.DROP);
                     that.mapMarkers()[i].listView(true);
                 }
             }
@@ -362,13 +364,13 @@ var AppViewModel = function() {
 
     // Sort mapMarkers by name
     that.mapMarkers.sort(function(one, two) {
-        return one.name() == two.name() ? 0 : (one.name() < two.name() ? -1 : 1);
+        return one.name == two.name ? 0 : (one.name < two.name ? -1 : 1);
     });
 
     // Populate locationType observable array
     for (var i = 0; i < that.mapMarkers().length; i++) {
-        if(!that.locationType().includes(that.mapMarkers()[i].locationType())) {
-            that.locationType.push(that.mapMarkers()[i].locationType());
+        if(!that.locationType().includes(that.mapMarkers()[i].locationType)) {
+            that.locationType.push(that.mapMarkers()[i].locationType);
         }
     }
 
@@ -386,6 +388,7 @@ var AppViewModel = function() {
 };
 
 function loadFailure() {
+
     /*
     ** This function is a fallback function in case the call to Google Maps API fails.
     */
@@ -398,6 +401,7 @@ function initMap() {
     /*
     ** This function initializes the Google Map API and KnockoutJS binding
     */
+
     if (typeof google !== 'object') {
         alert("Unable to load Google Maps at this time. Please try again later.")
         return;
