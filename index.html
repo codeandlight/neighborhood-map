@@ -27,8 +27,8 @@
 <body>
 
 <main>
-  <div id="menu-toggle"><div id="menu-toggle-button" data-bind="click: toggleMenuWindow">Menu <span class="glyphicon glyphicon-chevron-up"></span></div></div>
-  <div id="menu-window">
+  <div id="menu-toggle"><div id="menu-toggle-button" data-bind="click: toggleMenuWindow">Menu <span class="glyphicon glyphicon-remove"></span></div></div>
+  <div id="menu-window" data-bind="visible: showMenuWindow">
     <h2>Visit Mammoth Lakes!</h2>
     <div id="weatherBox" data-bind="with: currentWeather">
       <div id="weatherHeader">

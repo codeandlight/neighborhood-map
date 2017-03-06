@@ -343,6 +343,8 @@ var AppViewModel = function() {
     that.mapMarkers = ko.observableArray([]);
     that.locationType = ko.observableArray(['All']);
     that.selectedLocationType = ko.observable('All');
+    that.showMenuWindow = ko.observable(true);
+    that.viewWidth = ko.observable(window.innerWidth);
 
     that.filterMarkers = ko.computed(function() {
         infowindow.close();
@@ -390,12 +392,22 @@ var AppViewModel = function() {
 
     // Toggles the visibility of the menu window. Only visible when screen is <= 768px.
     that.toggleMenuWindow = function() {
-        $("#menu-window").toggle(500);
-        $("#menu-toggle-button").find("span").toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
+        // $("#menu-window").toggle(500);
+        that.showMenuWindow(!that.showMenuWindow());
+        $("#menu-toggle-button").find("span").toggleClass('glyphicon-remove').toggleClass('glyphicon-menu-hamburger');
     };
 
     // Resize map to fit all markers
     map.fitBounds(bounds);
+
+    // Listener to resize map to fit all markers if user changes window size
+    google.maps.event.addDomListener(window, 'resize', function() {
+        map.fitBounds(bounds);
+        that.viewWidth(window.innerWidth);
+        if (that.viewWidth <= 768) {
+            that.showMenuWindow(true);
+        }
+    });
 };
 
 function loadFailure() {
