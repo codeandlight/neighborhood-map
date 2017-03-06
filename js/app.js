@@ -333,6 +333,8 @@ var AppViewModel = function() {
     **      mapMarkers : Array of modelMarkers
     **      locationType : Array of location types that used to filter mapMarkers
     **      selectedLocationType : Observable to hold the value of the locationType for filtering
+    **      showMenuWindow : CSS binding to toggle visibility of #menu-window
+    **      that.viewWidth : Observable to monitor width of viewport to determine if showMenuWindow is toggled after load
     **      filterMarkers : Computed observable that filters the list view and sets the visibility of
     **                      each marker based on selectedLocadtionType(). It also closes any open infowindow
     **                      and sets infowindow.marker to null whenever the filter is changed.
@@ -392,7 +394,6 @@ var AppViewModel = function() {
 
     // Toggles the visibility of the menu window. Only visible when screen is <= 768px.
     that.toggleMenuWindow = function() {
-        // $("#menu-window").toggle(500);
         that.showMenuWindow(!that.showMenuWindow());
         $("#menu-toggle-button").find("span").toggleClass('glyphicon-remove').toggleClass('glyphicon-menu-hamburger');
     };
@@ -400,12 +401,12 @@ var AppViewModel = function() {
     // Resize map to fit all markers
     map.fitBounds(bounds);
 
-    // Listener to resize map to fit all markers if user changes window size
+    // Listener to resize map to fit all markers, and call togglesMenuWindow() if user changes window size
     google.maps.event.addDomListener(window, 'resize', function() {
         map.fitBounds(bounds);
         that.viewWidth(window.innerWidth);
-        if (that.viewWidth <= 768) {
-            that.showMenuWindow(true);
+        if (that.viewWidth() > 768 && !that.showMenuWindow()) {
+            that.toggleMenuWindow();
         }
     });
 };
