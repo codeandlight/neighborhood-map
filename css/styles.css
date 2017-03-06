@@ -44,7 +44,8 @@ hr {
 	text-align: center;
 }
 select {
-	font-size: inherit;
+	color: black;
+	background: white;
 }
 
 #menu-window {
