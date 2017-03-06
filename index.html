@@ -30,9 +30,15 @@
   <div id="menu-toggle"><div id="menu-toggle-button" data-bind="click: toggleMenuWindow">Menu <span class="glyphicon glyphicon-chevron-up"></span></div></div>
   <div id="menu-window">
     <h2>Visit Mammoth Lakes!</h2>
-    <div id="weatherInfo" data-bind="with: currentWeather">
-      <h5>Current Weather <a href="https://darksky.net/poweredby/" target="_blank">(Powered by Dark Sky)</a></h5>
-      <span id="weatherIcon" data-bind="html: weatherIcon"></span> <span data-bind="text: weatherSummary"></span>
+    <div id="weatherBox" data-bind="with: currentWeather">
+      <div id="weatherHeader">
+        <h4>Current Weather</h4>
+        <span><a href="https://darksky.net/poweredby/" target="_blank">(Powered by Dark Sky)</a></span>
+      </div>
+      <div id="weatherInfo">
+        <span id="weatherIcon" data-bind="html: weatherIcon"></span>
+        <span id="weatherText" data-bind="text: weatherSummary"></span>
+      </div>
     </div>
     <hr>
     <p>Filter Locations: <select data-bind="options: locationType, value: selectedLocationType"></select></p>

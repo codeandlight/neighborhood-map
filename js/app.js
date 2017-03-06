@@ -253,16 +253,27 @@ var MarkerModel = function(item) {
             .done( function(data, textStatus, jqXHR) {
                 var businessInfo = JSON.parse(JSON.stringify(data.businesses[0]));
                 console.log('status[' + textStatus + ']');
-                var contentString = '<div class="yelpInfoWindow">' +
-                                    '<div id="yelpBusinessName">' + businessInfo.name + '</div>' +
-                                    '<div id="yelpBusinessInfo">' +
-                                    '<div class="yelpInfo"><img id="yelpImg" src="' + businessInfo.image_url + '" alt="' + businessInfo.name + '"></div>' +
-                                    '<div><img id="yelpRatings" src="' + businessInfo.rating_img_url + '" alt="rating: ' + businessInfo.rating + '"></div>' +
-                                    '<div id="yelpPhone"><span class="glyphicon glyphicon-phone-alt"></span> <a href="tel:' + businessInfo.phone + '">' + businessInfo.display_phone + '</a></div>' +
-                                    '<span id="yelpBusinessAddress">' + businessInfo.location.display_address + '</span><br>' +
-                                    '<span id="yelpSnippet">' + businessInfo.snippet_text + '</span><br>' +
-                                    '<span><a href="' + businessInfo.url + '" target="_blank" alt="Yelp Link">See more reviews on Yelp.com</a></span>' +
-                                    '</div></div>';
+                var yName, yRating, yDisplayPhone, yAddress, ySnippet, yURL;
+                yName = businessInfo.name  || 'Business Name Unavailable';
+                yRating = businessInfo.rating || 'not available';
+                yDisplayPhone = businessInfo.display_phone || 'Phone number not provided';
+                yAddress = businessInfo.location ? businessInfo.location.display_address : 'Address unavailable.'; //businessInfo.location.display_address || 'Address not provided';
+                ySnippet = businessInfo.snippet_text || 'Review snippet unavailable';
+                yURL = businessInfo.url || 'http://www.yelp.com';
+                var contentString = '<div id="yelpInfoWindow">' +
+                                        '<div id="yelpHeader">' +
+                                            '<div id="yelpImgLogo"><a href="'+ yURL + '" target="_blank"><img id="yelpLogo" src="images/Yelp_trademark_RGB.png" alt="Yelp Logo"></a></div>' +
+                                            '<div id="yelpBusinessName">' + yName + '</div>' +
+                                        '</div><!-- /#yelpHeader -->' +
+                                        '<div id="yelpBusinessInfo">' +
+                                            '<img id="yelpImg" src="' + businessInfo.image_url + '" alt="' + yName + '">' +
+                                            '<img id="yelpRatings" src="' + businessInfo.rating_img_url + '" alt="rating: ' + yRating + '">' +
+                                            '<div><span class="glyphicon glyphicon-phone-alt"></span> <a id="yelpPhone" href="tel:' + businessInfo.phone + '">' + yDisplayPhone + '</a></div>' +
+                                            '<span id="yelpBusinessAddress">' + yAddress + '</span><br>' +
+                                            '<div><span id="yelpSnippet">' + ySnippet + '</span>' +
+                                            '<span><a id="yelpBusinessLink" href="' + yURL + '" target="_blank" alt="Yelp Link"> Read More </a></span></div>' +
+                                        '</div><!-- /#yelpBusinesInfo -->' +
+                                    '</div><!-- /#yelpInfoWindow -->';
                 infowindow.setContent(contentString);
             })
             .fail( function( jqXHR, textStatus, errorThrown) {
